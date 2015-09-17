@@ -7,11 +7,7 @@ let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let config = require('./config');
 
 module.exports = {
-    entry: [
-        'webpack-dev-server/client?http://0.0.0.0:8080',
-        'webpack/hot/dev-server',
-        path.join(process.cwd(), config.src, config.js.src)
-    ],
+    entry: path.join(process.cwd(), config.src, config.js.src),
     output: {
         path: path.join(process.cwd(), config.target),
         filename: config.js.target
@@ -36,7 +32,6 @@ module.exports = {
         modulesDirectories: ['node_modules']
     },
     plugins: [
-        new ExtractTextPlugin(config.css.target),
-        new webpack.HotModuleReplacementPlugin()
+        new ExtractTextPlugin(config.css.target)
     ]
 };

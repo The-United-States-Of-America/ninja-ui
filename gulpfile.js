@@ -28,9 +28,16 @@ function build(callback) {
 
 function watch() {
     let debugOptions = Object.create(webpackConf);
+    debugOptions.entry = [
+        'webpack-dev-server/client?http://0.0.0.0:8080',
+        'webpack/hot/dev-server',
+        debugOptions.entry
+    ];
+
     debugOptions.debug = true;
     debugOptions.devtool = 'eval';
     debugOptions.output.publicPath = 'http://localhost:8080/';
+    debugOptions.plugins.push(new webpack.HotModuleReplacementPlugin());
 
     let compiler = webpack(debugOptions);
     new WebpackDevServer(compiler, {
