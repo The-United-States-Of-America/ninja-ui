@@ -1,0 +1,11 @@
+{
+    "target": "target",
+    "src": "src",
+    "js": {
+        "src": "app.js",
+        "target": "app.js"
+    },
+    "css": {
+        "target": "app.css"
+    }
+}
