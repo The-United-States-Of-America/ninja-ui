@@ -16,15 +16,18 @@ module.exports = {
         loaders: [
             {
                 test: /\.js$/,
-                loader: 'babel-loader?optional[]=runtime&stage=0',
+                loader: 'babel?optional[]=runtime&stage=0',
                 exclude: /node_modules/
             }, {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract('css-loader?module!cssnext-loader'),
+                loader: ExtractTextPlugin.extract('css?module!cssnext'),
                 exclude: /node_modules/
             }, {
                 test: /\.html$/,
                 loader: 'html'
+            }, {
+                test: /\.css$/,
+                loader: ExtractTextPlugin.extract('css')
             }
         ]
     },

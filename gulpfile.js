@@ -3,19 +3,23 @@
 let path = require('path');
 let gulp = require('gulp');
 let gutil = require('gulp-util');
+let del = require('del');
 let minimist = require('minimist');
 let webpack = require('webpack');
 let WebpackDevServer = require('webpack-dev-server');
-
 let conf = require('./config');
 let webpackConf = require('./webpack.config');
 
-function prepare() {
-    gulp.src(path.join(conf.src, 'index.html'))
-        .pipe(gulp.dest(conf.target));
-}
+gulp.task('prepare', function(callback) {
+    del('target').then(function() {
+        gulp.src(path.join(conf.src, 'index.html'))
+            .pipe(gulp.dest(conf.target));
 
-function build(callback) {
+        callback();
+    });
+});
+
+gulp.task('build', ['prepare'], function(callback) {
     webpack(webpackConf, function(err, stats) {
         if (err) {
             throw new gutil.PluginError('webpack', err)
@@ -26,9 +30,9 @@ function build(callback) {
         }));
         callback();
     });
-}
+});
 
-function debug() {
+gulp.task('debug', ['prepare'], function() {
     let debugOptions = Object.create(webpackConf);
     debugOptions.entry = [
         'webpack-dev-server/client?http://0.0.0.0:8080',
@@ -56,8 +60,4 @@ function debug() {
 
         gutil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html');
     });
-}
-
-gulp.task('prepare', prepare);
-gulp.task('build', ['prepare'], build);
-gulp.task('debug', ['build'], debug);
+});

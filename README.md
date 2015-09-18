@@ -2,7 +2,7 @@
 
 ## Development
 
-Run `gulp watch` to start the dev server.
+Run `gulp debug` to start the dev server.
 
 ## Production
 

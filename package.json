@@ -10,9 +10,11 @@
     "babel-runtime": "^5.8.24",
     "css-loader": "^0.18.0",
     "cssnext-loader": "^1.0.1",
+    "del": "^2.0.2",
     "extract-text-webpack-plugin": "^0.8.2",
     "gulp": "^3.9.0",
     "gulp-util": "^3.0.6",
+    "html-loader": "^0.3.0",
     "minimist": "^1.2.0",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.11.0"

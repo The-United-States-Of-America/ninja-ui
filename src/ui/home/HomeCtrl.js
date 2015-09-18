@@ -1,5 +1,5 @@
 export default class HomeCtrl {
     constructor($scope) {
-        $scope.test = 'THIS IS A TEST';
+        $scope.buttonContent = 'THIS IS A STUPID TEST';
     }
 }
