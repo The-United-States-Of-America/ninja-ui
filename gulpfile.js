@@ -19,7 +19,13 @@ gulp.task('prepare', function(callback) {
 });
 
 gulp.task('build', ['prepare'], function(callback) {
-    webpack(webpackConf, function(err, stats) {
+    let prodOptions = Object.create(webpackConf);
+
+    prodOptions.plugins = prodOptions.plugins || [];
+    prodOptions.plugins.push(new webpack.optimize.UglifyJsPlugin({mangle: false}));
+    prodOptions.plugins.push(new webpack.optimize.DedupePlugin());
+
+    webpack(prodOptions, function(err, stats) {
         if (err) {
             throw new gutil.PluginError('webpack', err)
         }
