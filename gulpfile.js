@@ -43,6 +43,8 @@ gulp.task('debug', ['prepare'], function() {
     debugOptions.debug = true;
     debugOptions.devtool = 'eval-source-map';
     debugOptions.output.publicPath = 'http://localhost:8080/';
+
+    debugOptions.plugins = debugOptions.plugins || [];
     debugOptions.plugins.push(new webpack.HotModuleReplacementPlugin());
 
     let compiler = webpack(debugOptions);

@@ -16,6 +16,7 @@
     "gulp-util": "^3.0.6",
     "html-loader": "^0.3.0",
     "minimist": "^1.2.0",
+    "style-loader": "^0.12.4",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.11.0"
   },
