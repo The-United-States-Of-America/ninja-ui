@@ -2,7 +2,6 @@
 
 let path = require('path');
 let webpack = require('webpack');
-let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let config = require('./config');
 
 module.exports = {
@@ -19,11 +18,11 @@ module.exports = {
                 exclude: /node_modules/
             }, {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract('css'),
+                loader: 'style!css?sourceMap',
                 exclude: /src/
             }, {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract('css?module!cssnext'),
+                loader: 'style!css?module&sourceMap!cssnext',
                 exclude: /node_modules/
             }, {
                 test: /\.html$/,
@@ -37,8 +36,5 @@ module.exports = {
     },
     cssnext: {
         browsers: "last 2 versions"
-    },
-    plugins: [
-        new ExtractTextPlugin(config.css.target, { allChunks: true })
-    ]
+    }
 };

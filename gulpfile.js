@@ -4,7 +4,6 @@ let path = require('path');
 let gulp = require('gulp');
 let gutil = require('gulp-util');
 let del = require('del');
-let minimist = require('minimist');
 let webpack = require('webpack');
 let WebpackDevServer = require('webpack-dev-server');
 let conf = require('./config');
@@ -28,6 +27,7 @@ gulp.task('build', ['prepare'], function(callback) {
         gutil.log('[webpack]', stats.toString({
             colors: true
         }));
+
         callback();
     });
 });

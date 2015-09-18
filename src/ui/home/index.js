@@ -14,12 +14,10 @@ angular.module(namespace, [
     ngMaterial
 ])
 
-.controller('HomeCtrl', HomeCtrl)
-
 .config(function($stateProvider) {
     $stateProvider.state('home', {
         url: '/home',
         template: HomeTemplate,
-        controller: 'HomeCtrl'
+        controller: HomeCtrl
     });
 });
