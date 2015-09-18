@@ -28,7 +28,7 @@ function build(callback) {
     });
 }
 
-function watch() {
+function debug() {
     let debugOptions = Object.create(webpackConf);
     debugOptions.entry = [
         'webpack-dev-server/client?http://0.0.0.0:8080',
@@ -37,7 +37,7 @@ function watch() {
     ];
 
     debugOptions.debug = true;
-    debugOptions.devtool = 'eval';
+    debugOptions.devtool = 'eval-source-map';
     debugOptions.output.publicPath = 'http://localhost:8080/';
     debugOptions.plugins.push(new webpack.HotModuleReplacementPlugin());
 
@@ -60,4 +60,4 @@ function watch() {
 
 gulp.task('prepare', prepare);
 gulp.task('build', ['prepare'], build);
-gulp.task('watch', ['build'], watch);
+gulp.task('debug', ['build'], debug);
