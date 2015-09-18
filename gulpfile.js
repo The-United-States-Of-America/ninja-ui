@@ -3,10 +3,12 @@
 let path = require('path');
 let gulp = require('gulp');
 let gutil = require('gulp-util');
+let minimist = require('minimist');
 let webpack = require('webpack');
 let WebpackDevServer = require('webpack-dev-server');
-let webpackConf = require('./webpack.config');
+
 let conf = require('./config');
+let webpackConf = require('./webpack.config');
 
 function prepare() {
     gulp.src(path.join(conf.src, 'index.html'))

@@ -2,10 +2,10 @@
     "target": "target",
     "src": "src",
     "js": {
-        "src": "app.js",
-        "target": "app.js"
+        "src": "index.js",
+        "target": "ninja.js"
     },
     "css": {
-        "target": "app.css"
+        "target": "ninja.css"
     }
 }

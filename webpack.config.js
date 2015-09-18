@@ -20,7 +20,8 @@ module.exports = {
                 exclude: /node_modules/
             }, {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract('css-loader?module!cssnext-loader')
+                loader: ExtractTextPlugin.extract('css-loader?module!cssnext-loader'),
+                exclude: /node_modules/
             }, {
                 test: /\.html$/,
                 loader: 'html'
