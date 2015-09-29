@@ -8,6 +8,47 @@ let webpack = require('webpack');
 let WebpackDevServer = require('webpack-dev-server');
 let conf = require('./config');
 let webpackConf = require('./webpack.config');
+let fs = require('fs-extra');
+let tap = require('gulp-tap');
+
+gulp.task('icons', function() {
+    var replaceAll = function(s, target, replacement) {
+      var array = s.split(target);
+      return array.join(replacement);
+    };
+
+    var svgs = {};
+    var stream = gulp.src('node_modules/material-design-icons/**/svg/production/*24px.svg')
+        .pipe(tap(function(p) {
+
+            var dirname = path.relative('.',p.path);
+            var basename = path.basename(p.path);
+
+            dirname = dirname.split("/")[3];
+
+            var svg;
+            if (svgs[dirname])
+              svg = svgs[dirname];
+            else
+              svg = '<svg>\n';
+
+            basename = basename.split('_24px')[0]
+            basename = replaceAll(basename, '_', '-');
+            basename = replaceAll(basename, 'ic-', '');
+            svg = svg + '<g id="'+basename+'">\n';
+            svg = svg + '\t' + p.contents;
+            svg = svg + '\n</g>\n';
+
+            svgs[dirname] = svg;
+        }));
+
+    stream.on('end', function() {
+      for (var i in svgs) {
+        var ws = fs.createOutputStream(path.join(conf.target, 'icons', i + ".svg"));
+        ws.write(svgs[i]+'\n</svg>');
+      }
+    });
+});
 
 gulp.task('prepare', function(callback) {
     del('target').then(function() {

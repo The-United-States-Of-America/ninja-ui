@@ -1,33 +1,32 @@
 const namespace = 'ninja.ui';
+export default namespace;
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import ngAnimate from 'angular-animate';
 import ngMaterialStyles from 'angular-material/angular-material.css';
 import ngMaterial from 'angular-material';
+import uiDash from './dash';
 
-import uiHome from './home';
+import './ui.css';
 
 angular.module(namespace, [
     ngAnimate,
     ngMaterial,
     uiRouter,
-    uiHome
+    uiDash
 ])
 
 .config(function($urlRouterProvider) {
-    $urlRouterProvider.otherwise('home');
+    $urlRouterProvider.otherwise('dash');
 })
 
 .config(function($mdThemingProvider, $mdIconProvider) {
     $mdThemingProvider
         .theme('ninja')
-        .primaryPalette('teal')
-        .accentPalette('deep-purple');
+        .primaryPalette('blue-grey')
+        .accentPalette('deep-orange');
 
     $mdThemingProvider.setDefaultTheme('ninja');
 
-    $mdIconProvider.defaultFontSet('fa');
+    $mdIconProvider
 });
-
-
-export default namespace;
