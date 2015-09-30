@@ -1,11 +1,13 @@
 const namespace = 'ninja.ui';
 export default namespace;
+
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import ngAnimate from 'angular-animate';
 import ngMaterialStyles from 'angular-material/angular-material.css';
 import ngMaterial from 'angular-material';
 import uiDash from './dash';
+import uiLogin from './login';
 
 import './ui.css';
 
@@ -13,7 +15,8 @@ angular.module(namespace, [
     ngAnimate,
     ngMaterial,
     uiRouter,
-    uiDash
+    uiDash,
+    uiLogin
 ])
 
 .config(function($urlRouterProvider) {

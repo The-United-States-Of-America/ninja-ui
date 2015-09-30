@@ -19,7 +19,6 @@ angular.module(namespace, [
     $stateProvider.state('dash', {
         url: '/dash',
         template: DashTemplate,
-        controller: DashCtrl,
         abstract: true
     })
     .state('dash.patient', {
