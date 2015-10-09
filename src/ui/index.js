@@ -6,20 +6,29 @@ import uiRouter from 'angular-ui-router';
 import ngAnimate from 'angular-animate';
 import ngMaterialStyles from 'angular-material/angular-material.css';
 import ngMaterial from 'angular-material';
+import gravatar from 'angular-gravatar';
 import uiDash from './dash';
-import uiLogin from './login';
+import uiCtrl from './uiCtrl';
+import uiTemplate from './ui.html';
 
 import './ui.css';
 
 angular.module(namespace, [
     ngAnimate,
     ngMaterial,
+    'ui.gravatar',
     uiRouter,
-    uiDash,
-    uiLogin
+    uiDash
 ])
 
-.config(function($urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider) {
+    $stateProvider.state('ui', {
+        url: '',
+        template: uiTemplate,
+        controller: uiCtrl,
+        abstract: true
+    });
+
     $urlRouterProvider.otherwise('dash');
 })
 
@@ -31,5 +40,5 @@ angular.module(namespace, [
 
     $mdThemingProvider.setDefaultTheme('ninja');
 
-    $mdIconProvider
+    $mdIconProvider.defaultIconSet('/icons/icons.svg')
 });
