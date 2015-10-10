@@ -23,3 +23,9 @@ angular.module(namespace, [
         controller: LoginCtrl
     });
 })
+
+.controller(namespace, function($scope) {
+  $scope.authenticate = function() {
+
+  }
+});
