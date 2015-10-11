@@ -7,7 +7,9 @@ import ngAnimate from 'angular-animate';
 import ngMaterial from 'angular-material'
 import DashCtrl from './DashCtrl';
 import DashTemplate from './dash.html';
-import PatientSidebar from './patientSidebar.html';
+import patientSidebar from './patientSidebar.html';
+import patientDash from './patientDash.html';
+import doctorSidebar from './doctorSidebar.html';
 
 angular.module(namespace, [
     uiRouter,
@@ -33,11 +35,22 @@ angular.module(namespace, [
         url: '/patient',
         views: {
             sidebar: {
-                template: PatientSidebar
+                template: patientSidebar
             },
             dashboard: {
-                template: '<h1>Patient Dashboard</h1>'
+                template: "<h1>I'm a patient</h1>"
             }
         }
-    });
+    })
+    .state('ui.dash.doctor', {
+        url: '/doctor',
+        views: {
+            sidebar: {
+                template: doctorSidebar
+            },
+            dashboard: {
+                template: "<h1>I'm a doctor</h1>"
+            }
+        }
+    })
 });
