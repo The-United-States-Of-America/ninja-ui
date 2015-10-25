@@ -38,8 +38,9 @@
                       </md-select>
                   </md-input-container>
                 </div>
+                <div ng-message="required">{{user.error_message}}</div>
             </form>
-            <md-button type="submit" ng-submit="authenticate" class="md-raised md-primary">Submit</md-button>
+            <md-button type="submit" ng-submit="login()" class="md-raised md-primary">Submit</md-button>
         </md-content>
       </md-card-content>
     </md-card>
