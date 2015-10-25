@@ -1,6 +1,6 @@
 const namespace = 'ninja';
 export default namespace;
-
+console.log('loading')
 import angular from 'angular';
 import ninjaUI from './ui';
 import ninjaCore from './core';

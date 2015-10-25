@@ -38,7 +38,7 @@ angular.module(namespace, [
                 template: patientSidebar
             },
             dashboard: {
-                template: "<h1>I'm a patient</h1>"
+                template: patientDash
             }
         }
     })
