@@ -9,6 +9,7 @@ import ngMaterial from 'angular-material';
 import gravatar from 'angular-gravatar';
 import uiDash from './dash';
 import uiLogin from './login';
+import uiRegistration from './registration';
 import uiCtrl from './uiCtrl';
 import uiTemplate from './ui.html';
 
@@ -20,7 +21,8 @@ angular.module(namespace, [
     'ui.gravatar',
     uiRouter,
     uiDash,
-    uiLogin
+    uiLogin,
+    uiRegistration
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {

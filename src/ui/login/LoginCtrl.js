@@ -1,6 +1,9 @@
+import styles from "./login.css";
+
 export default class LoginCtrl {
-  constructor($scope) {
+  constructor($scope, $state) {
       this.$scope = $scope;
+      this.$scope.styles = styles;
       this.$state = $state;
 
       this.$scope.user = {

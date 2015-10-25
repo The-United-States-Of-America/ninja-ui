@@ -1,6 +1,6 @@
-<div layout-fill layout="column" layout-align="center" flex ng-cloak>
-  <md-card>
-    <md-card-content>
+<div layout-fill layout="column" layout-align="center center" ng-cloak>
+  <md-card ng-class="styles.loginCard">
+    <md-card-content  flex="50">
       <md-toolbar>
         <h2 class="md-toolbar-tools">
           <span>Login</span>
@@ -41,4 +41,6 @@
         </md-content>
       </md-card-content>
     </md-card>
+
+    <md-button class="md-primary" ui-sref="registration">New User? Register here.</md-button>
 </div>
