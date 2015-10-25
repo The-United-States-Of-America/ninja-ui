@@ -13,12 +13,18 @@
                 <md-list>
                     <md-list-item>
                         <div class="avatar-frame">
-                            <img gravatar-src-once="'delanr3@rpi.edu'" gravatar-size="500">
+                            <img gravatar-src-once="email" gravatar-size="500">
                         </div>
                     </md-list-item>
                     <md-divider></md-divider>
                     <ui-view name="sidebar"></ui-view>
                     <md-divider></md-divider>
+                    <md-list-item class="md-2-line" ng-click="goToMessages()">
+                        <md-icon md-svg-icon="message"></md-icon>
+                        <div class="md-list-item-text">
+                            <h3>Messages</h3>
+                        </div>
+                    </md-list-item>
                     <md-list-item class="md-2-line" ng-click="goToSettings()">
                         <md-icon md-svg-icon="settings"></md-icon>
                         <div class="md-list-item-text">
