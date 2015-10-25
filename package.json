@@ -1,6 +1,6 @@
 {
   "name": "ninja-ui",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Ryan Delaney <rrdelaney@outlook.com>",
   "license": "MIT",
   "repository": "https://github.com/The-United-States-Of-America/ninja-ui.git",
@@ -31,9 +31,9 @@
     "angular-gravatar": "^0.4.1",
     "angular-material": "^0.11.0",
     "angular-ui-router": "^0.2.15",
+    "clndr": "^1.3.3",
     "es6-promise": "^3.0.2",
     "material-design-icons": "^2.0.0",
-    "semantic-ui-css": "^2.1.4",
-    "whatwg-fetch": "^0.9.0"
+    "semantic-ui-css": "^2.1.4"
   }
 }
