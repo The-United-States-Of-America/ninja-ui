@@ -1,0 +1,33 @@
+:global #root {
+    height: 100%;
+}
+
+.ninja {
+    display: flex;
+    align-items: stretch;
+    flex: 1 1 auto;
+}
+
+.ninjaContainer {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+:global .slide-left-enter, :global .slide-left-leave {
+    transition: 500ms ease all;
+}
+
+:global .slide-left-enter {
+    left: -100%;
+}
+:global .slide-left-enter.slide-left-enter-active {
+    left: 0;
+}
+
+:global .slide-left-leave {
+    left: 0;
+}
+:global .slide-left-leave.slide-left-leave-active{
+    left: -100%;
+}
