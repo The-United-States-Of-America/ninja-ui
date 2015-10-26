@@ -57,6 +57,9 @@ gulp.task('prepare', function(cb) {
         gulp.src(path.join(conf.src, 'index.html'))
             .pipe(gulp.dest(conf.target));
 
+        gulp.src(path.join('node_modules', 'clndr', 'clndr.min.js'))
+            .pipe(gulp.dest(conf.target));
+
         cb();
     });
 });

@@ -31,7 +31,7 @@ function watch() {
     new WebpackDevServer(compiler, {
         contentBase: './target/',
         hot: true,
-        noInfo: true,
+        //noInfo: true,
         stats: {
             colors: true
         }

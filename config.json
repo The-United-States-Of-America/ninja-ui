@@ -4,8 +4,5 @@
     "js": {
         "src": "index.js",
         "target": "ninja.js"
-    },
-    "css": {
-        "target": "ninja.css"
     }
 }

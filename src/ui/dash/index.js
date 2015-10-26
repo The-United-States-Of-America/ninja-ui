@@ -4,7 +4,9 @@ export default namespace;
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import ngAnimate from 'angular-animate';
-import ngMaterial from 'angular-material'
+import ngMaterial from 'angular-material';
+import jQuery from 'jquery';
+import 'clndr';
 import DashCtrl from './DashCtrl';
 import DashTemplate from './dash.html';
 import patientSidebar from './patientSidebar.html';
@@ -16,6 +18,15 @@ angular.module(namespace, [
     ngAnimate,
     ngMaterial
 ])
+
+.directive('clndrSettings', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            jQuery(element).clndr(scope.$eval(attrs.toolbarTip));
+        }
+    };
+})
 
 .config(function($stateProvider) {
     $stateProvider.state('ui.dash', {
@@ -38,7 +49,7 @@ angular.module(namespace, [
                 template: patientSidebar
             },
             dashboard: {
-                template: "<h1>I'm a patient</h1>"
+                template: patientDash
             }
         }
     })
