@@ -1,28 +1,75 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-export default function LoginPane() {
-    let Email = () => <input type="text" placeholder="email"/>
+import { loginPane } from './LoginPane.css'
 
-    let Password = () => <input type="password" placeholder="password"/>
+export default class LoginPane extends Component {
+    constructor(props) {
+        super(props)
 
-    let UserType = () => <div className="ui compact menu">
-        <div className="ui simple dropdown item">
-            User Type
-            <i className="dropdown icon"></i>
-            <div className="menu">
-                <div className="item">Doctor</div>
-                <div className="item">Patient</div>
-                <div className="item">Administrator</div>
+        this.handleEmailUpdate = this.handleEmailUpdate.bind(this)
+        this.handlePasswordUpdate = this.handlePasswordUpdate.bind(this)
+
+        this.state = {
+            email: '',
+            password: '',
+            usertype: ''
+        }
+    }
+
+    handleEmailUpdate(e) {
+        this.setState({
+            email: e.target.value
+        })
+    }
+
+    handlePasswordUpdate(e) {
+        this.setState({
+            password: e.target.value
+        })
+    }
+
+    render() {
+        return <div className={`${loginPane} ui piled segment`}>
+            <div className="ui large form">
+                <div className="field">
+                    <label>Email</label>
+                    <div className="ui fluid input">
+                        <input
+                            type="text"
+                            placeholder="Email"
+                            value={this.state.email}
+                            onChange={this.handleEmailUpdate}
+                        />
+                    </div>
+                </div>
+                <div className="field">
+                    <label>Password</label>
+                    <div className="ui fluid input">
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            value={this.state.password}
+                            onChange={this.handlePasswordUpdate}
+                        />
+                    </div>
+                </div>
+                <div className="field">
+                    <label>User Type</label>
+                    <select className="ui dropdown">
+                        <option value="patient">Patient</option>
+                        <option value="doctor">Doctor</option>
+                        <option value="admin">Administrator</option>
+                    </select>
+                </div>
+                <button
+                    className="ui fluid blue button"
+                    type="submit"
+                    onClick={() => this.props.onLogin(this.state.username, this.state.password, this.state.usertype)}
+                >
+                    Login
+                </button>
             </div>
         </div>
-    </div>
+    }
 
-    return <div>
-        <h3>Email</h3>
-        <Email/>
-        <h3>Password</h3>
-        <Password/>
-        <h3>User Type</h3>
-        <UserType/>
-    </div>
 }

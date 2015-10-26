@@ -1,5 +1,3 @@
-import { combineReducers } from 'redux'
-import { List, Set } from 'immutable'
 import { TOGGLE_SIDEBAR, CHANGE_LOCATION } from './actions'
 
 let initialState = () => ({
@@ -8,7 +6,7 @@ let initialState = () => ({
     showSidebar: document.body.clientWidth >= 600
 });
 
-export default function ui(state = initialState(), action) {
+export default function reduce(state = initialState(), action) {
     switch (action.type) {
         case TOGGLE_SIDEBAR:
             return {
