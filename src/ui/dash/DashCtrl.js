@@ -1,3 +1,5 @@
+import './calendar.css'
+
 export default class DashCtrl {
     constructor($scope, $state) {
         this.$state = $state;

@@ -1,0 +1,36 @@
+:global .day.adjacent-month {
+    color: grey;
+}
+
+:global .day {
+    color: rebeccapurple;
+    border: solid grey 2px;
+    text-align: center;
+    font-family: 'Raleway';
+    font-weight: 500;
+    font-size: 24pt;
+    padding: .5rem;
+}
+
+:global .clndr-controls {
+    display: flex;
+    text-align: center;
+    padding-bottom: 1rem;
+}
+
+:global .month {
+    font-family: 'Raleway';
+    font-weight: 700;
+    flex-grow: 2;
+}
+
+:global .clndr-control-button {
+    flex-grow: 1;
+    text-decoration: underline;
+    font-family: 'Raleway';
+    font-weight: 500;
+}
+
+:global .clndr-table {
+    margin: 0 auto;
+}
