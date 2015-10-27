@@ -7,7 +7,7 @@ import { toggleSidebar } from './ui/actions'
 import { doLogin, doLogout } from './login/actions'
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
-import Room from './components/Room'
+import Dash from './components/Dash'
 import LoginPane from './components/LoginPane'
 import { ninja, ninjaContainer } from './App.css'
 
@@ -37,7 +37,7 @@ export default class App extends Component {
                   onLogout={() => dispatch(doLogout())}/>}
         </ReactCSSTransitionGroup>
 
-        let room = <Room mobile={mobile}/>
+        let dash = <Dash mobile={mobile}/>
 
         return !isLoggedIn
             ? <div style={{paddingTop: '5rem'}}>
@@ -47,7 +47,7 @@ export default class App extends Component {
                 {nav}
                 <div className={ninja}>
                     {sidebar}
-                    {room}
+                    {dash}
                 </div>
               </div>
     }

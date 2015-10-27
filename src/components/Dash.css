@@ -1,0 +1,57 @@
+.dash {
+  flex-grow: 5;
+  height: 100%;
+  overflow: scroll;
+  padding: 1rem 0 3.5rem 0;
+  margin-top: 0 !important;
+}
+
+:global .clndr-controls div {
+  background: #999;
+  display: inline-block;
+  width: 30%;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+:global .clndr-controls :global .current-month {
+  width: 40%;
+  background: #333;
+  color: #fff;
+}
+
+:global .clndr {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+:global .clndr-grid {
+  text-align: center;
+}
+
+:global .day-headers {
+  display: none;
+}
+
+:global .clndr-grid :global .days div {
+  width: calc(100% / 7);
+  float: left;
+  max-width: 100px;
+  height: 50px;
+  line-height: 50px;
+  background: #eee;
+  border: 1px solid #ddd;
+}
+
+:global .clndr-grid :global .days div:nth-child(7n + 1) {
+  clear: both;
+}
+
+:global .prev-month, :global .next-month {
+  color: #ccc;
+}
+
+:global .clearfix {
+  clear: both;
+}

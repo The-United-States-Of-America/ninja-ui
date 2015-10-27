@@ -8,7 +8,6 @@ import App from './App'
 import 'semantic-ui-css/semantic'
 import 'semantic-ui-css/semantic.css'
 
-
 let store = createStore(combineReducers({
     ui,
     login
