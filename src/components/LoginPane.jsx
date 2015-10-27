@@ -8,6 +8,7 @@ export default class LoginPane extends Component {
 
         this.handleEmailUpdate = this.handleEmailUpdate.bind(this)
         this.handlePasswordUpdate = this.handlePasswordUpdate.bind(this)
+        this.handleLogin = this.handleLogin.bind(this)
 
         this.state = {
             email: '',
@@ -26,6 +27,10 @@ export default class LoginPane extends Component {
         this.setState({
             password: e.target.value
         })
+    }
+
+    handleLogin() {
+        this.props.onLogin(this.state.email, this.state.password, this.state.usertype)
     }
 
     render() {
@@ -61,11 +66,7 @@ export default class LoginPane extends Component {
                         <option value="admin">Administrator</option>
                     </select>
                 </div>
-                <button
-                    className="ui fluid blue button"
-                    type="submit"
-                    onClick={() => this.props.onLogin(this.state.username, this.state.password, this.state.usertype)}
-                >
+                <button className="ui fluid blue button" type="submit" onClick={this.handleLogin}>
                     Login
                 </button>
             </div>
