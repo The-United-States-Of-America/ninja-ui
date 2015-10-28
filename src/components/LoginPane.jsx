@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import { loginPane } from './LoginPane.css'
 
 export default class LoginPane extends Component {

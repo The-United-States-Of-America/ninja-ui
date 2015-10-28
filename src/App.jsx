@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import uiSelector from './ui/selectors'
-import loginSelector from './login/selectors'
+import authSelector from './auth/selectors'
 import { toggleSidebar } from './ui/actions'
-import { doLogin, doLogout } from './login/actions'
+import { doLogin, doLogout } from './auth/actions'
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 import Dash from './components/Dash'
@@ -13,7 +13,7 @@ import { ninja, ninjaContainer } from './App.css'
 
 let select = state => ({
   ...uiSelector(state),
-  ...loginSelector(state)
+  ...authSelector(state)
 })
 
 @connect(select)

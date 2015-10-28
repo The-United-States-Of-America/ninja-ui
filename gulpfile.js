@@ -7,7 +7,7 @@ let webpack = require('webpack')
 let conf = require('./webpack.config')
 let del = require('del')
 let express = require('express')
-let testServer = require('./testServer')
+let babel = require("gulp-babel")
 
 gulp.task('prepare', function (callback) {
   del('target').then(function () {
@@ -42,9 +42,20 @@ gulp.task('build', ['prepare'], function (callback) {
   })
 })
 
-gulp.task('dev', testServer)
+gulp.task('backend', function () {
+  gulp.src("node_modules/ninja-backend-dbsrv/src/**/*.js")
+    .pipe(babel())
+    .pipe(gulp.dest("backend/dbsrv"))
 
-gulp.task('debug', ['prepare', 'dev'], function () {
+  require('backend/dbsrv/app')
+  require('backend/authsrv/app')
+
+  gulp.src("node_modules/ninja-backend-authsrv/src/**/*.js")
+    .pipe(babel())
+    .pipe(gulp.dest("backend/authsrv"))
+})
+
+gulp.task('ui', ['prepare'], function () {
   let devConf = Object.create(conf)
 
   devConf.plugins = devConf.plugins || []
@@ -83,4 +94,5 @@ gulp.task('debug', ['prepare', 'dev'], function () {
   })
 })
 
+gulp.task('debug', ['backend', 'ui'])
 gulp.task('default', ['build'])
