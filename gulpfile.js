@@ -43,16 +43,18 @@ gulp.task('build', ['prepare'], function (callback) {
 })
 
 gulp.task('backend', function () {
-  gulp.src("node_modules/ninja-backend-dbsrv/src/**/*.js")
+  gulp.src('node_modules/ninja-backend-dbsrv/src/**/*.js')
     .pipe(babel())
-    .pipe(gulp.dest("backend/dbsrv"))
+    .pipe(gulp.dest('node_modules/ninja-backend-dbsrv/dist'))
 
-  require('backend/dbsrv/app')
-  require('backend/authsrv/app')
-
-  gulp.src("node_modules/ninja-backend-authsrv/src/**/*.js")
+  gulp.src('node_modules/ninja-backend-authsrv/src/**/*.js')
     .pipe(babel())
-    .pipe(gulp.dest("backend/authsrv"))
+    .pipe(gulp.dest('node_modules/ninja-backend-authsrv/dist'))
+
+  gutil.log('[dbsrv]', 'Starting Database Service')
+  require('./node_modules/ninja-backend-dbsrv/dist/app')
+  gutil.log('[authsrv]', 'Starting Authenticationb Service')
+  require('./node_modules/ninja-backend-authsrv/dist/app')
 })
 
 gulp.task('ui', ['prepare'], function () {
