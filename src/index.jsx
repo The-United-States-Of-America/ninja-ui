@@ -2,16 +2,19 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { createStore, combineReducers, compose } from 'redux'
 import { Provider } from 'react-redux'
-import { createDevTools } from 'redux-devtools'
-import LogMonitor from 'redux-devtools-log-monitor'
-import DockMonitor from 'redux-devtools-dock-monitor'
 import ui from './ui/reducers'
-import login from './login/reducers'
+import login from './auth/reducers'
 import App from './App'
+import 'babel-core/polyfill'
+import 'whatwg-fetch'
 import 'semantic-ui-css/semantic'
 import 'semantic-ui-css/semantic.css'
 
 if (DEBUG) {
+  let createDevTools = require('redux-devtools').createDevTools
+  let LogMonitor = require('redux-devtools-log-monitor')
+  let DockMonitor = require('redux-devtools-dock-monitor')
+
   var DevTools = createDevTools(
     <DockMonitor toggleVisibilityKey='H' changePositionKey='Q'>
       <LogMonitor />
