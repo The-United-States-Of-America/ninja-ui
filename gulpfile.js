@@ -44,7 +44,7 @@ gulp.task('build', ['prepare'], function (callback) {
 
 gulp.task('dev', testServer)
 
-gulp.task('debug', ['prepare', 'testServer'], function () {
+gulp.task('debug', ['prepare', 'dev'], function () {
   let devConf = Object.create(conf)
 
   devConf.plugins = devConf.plugins || []
