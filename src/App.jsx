@@ -12,43 +12,42 @@ import LoginPane from './components/LoginPane'
 import { ninja, ninjaContainer } from './App.css'
 
 let select = state => ({
-    ...uiSelector(state),
-    ...loginSelector(state)
+  ...uiSelector(state),
+  ...loginSelector(state)
 })
 
 @connect(select)
 export default class App extends Component {
-    render() {
-        const { dispatch, mobile, showSidebar, isLoggedIn, username } = this.props
+  render() {
+    const { dispatch, mobile, showSidebar, isLoggedIn, username } = this.props
 
-        let nav = !mobile
-          ? null
-          : <Navbar
-              onToggleSidebar={() => dispatch(toggleSidebar())}
-              sidebarVisible={showSidebar}
-            />
+    let nav = !mobile
+      ? null
+      : <Navbar
+          onToggleSidebar={() => dispatch(toggleSidebar())}
+          sidebarVisible={showSidebar} />
 
-        let sidebar = <ReactCSSTransitionGroup transitionName="slide-left" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
-            {!showSidebar
-              ? null
-              : <Sidebar
-                  mobile={mobile}
-                  username={username}
-                  onLogout={() => dispatch(doLogout())}/>}
-        </ReactCSSTransitionGroup>
+    let sidebar = <ReactCSSTransitionGroup transitionName="slide-left" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+      {!showSidebar
+        ? null
+        : <Sidebar
+            mobile={mobile}
+            username={username}
+            onLogout={() => dispatch(doLogout())} />}
+    </ReactCSSTransitionGroup>
 
-        let dash = <Dash mobile={mobile}/>
-
-        return !isLoggedIn
-            ? <div style={{paddingTop: '5rem'}}>
-                <LoginPane onLogin={(u, p) => dispatch(doLogin(u, p))} />
-              </div>
-            : <div className={ninjaContainer}>
-                {nav}
-                <div className={ninja}>
-                    {sidebar}
-                    {dash}
-                </div>
-              </div>
+    if (!isLoggedIn) {
+      return <div style={{paddingTop: '5rem'}}>
+        <LoginPane onLogin={(u, p) => dispatch(doLogin(u, p))} />
+      </div>
+    } else {
+      return <div className={ninjaContainer}>
+        {nav}
+        <div className={ninja}>
+          {sidebar}
+          <Dash mobile={mobile}/>
+        </div>
+      </div>
     }
+  }
 }
