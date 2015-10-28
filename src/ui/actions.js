@@ -1,14 +1,18 @@
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR'
-export function toggleSidebar () {
-  return {
-    type: TOGGLE_SIDEBAR
+export function toggleSidebar (dispatch) {
+  return function () {
+    dispatch({
+      type: TOGGLE_SIDEBAR
+    })
   }
 }
 
 export const CHANGE_LOCATION = 'CHANGE_LOCATION'
-export function changeLocation (location) {
-  return {
-    type: CHANGE_LOCATION,
-    location
+export function changeLocation (dispatch) {
+  return function (location) {
+    return {
+      type: CHANGE_LOCATION,
+      location
+    }
   }
 }

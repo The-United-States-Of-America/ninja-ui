@@ -1,15 +1,19 @@
 export const DO_LOGIN = 'DO_LOGIN'
-export function doLogin (username, password) {
-  return {
-    type: DO_LOGIN,
-    username,
-    password
+export function doLogin (dispatch) {
+  return function (username, password) {
+    dispatch({
+      type: DO_LOGIN,
+      username,
+      password
+    })
   }
 }
 
 export const DO_LOGOUT = 'DO_LOGOUT'
-export function doLogout () {
-  return {
-    type: DO_LOGOUT
+export function doLogout (dispatch) {
+  return function () {
+    dispatch({
+      type: DO_LOGOUT
+    })
   }
 }

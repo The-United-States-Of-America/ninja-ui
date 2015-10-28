@@ -24,7 +24,7 @@ export default class App extends Component {
     let nav = !mobile
       ? null
       : <Navbar
-          onToggleSidebar={() => dispatch(toggleSidebar())}
+          onToggleSidebar={toggleSidebar(dispatch)}
           sidebarVisible={showSidebar} />
 
     let sidebar = <ReactCSSTransitionGroup transitionName="slide-left" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
@@ -33,12 +33,12 @@ export default class App extends Component {
         : <Sidebar
             mobile={mobile}
             username={username}
-            onLogout={() => dispatch(doLogout())} />}
+            onLogout={doLogout(dispatch)} />}
     </ReactCSSTransitionGroup>
 
     if (!isLoggedIn) {
       return <div style={{paddingTop: '5rem'}}>
-        <LoginPane onLogin={(u, p) => dispatch(doLogin(u, p))} />
+        <LoginPane onLogin={doLogin(dispatch)} />
       </div>
     } else {
       return <div className={ninjaContainer}>

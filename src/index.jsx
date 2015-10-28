@@ -16,7 +16,7 @@ if (DEBUG) {
   let DockMonitor = require('redux-devtools-dock-monitor')
 
   var DevTools = createDevTools(
-    <DockMonitor toggleVisibilityKey='H' changePositionKey='Q'>
+    <DockMonitor toggleVisibilityKey='H' changePositionKey='Q' defaultIsVisible={false}>
       <LogMonitor />
     </DockMonitor>
   )
