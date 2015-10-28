@@ -9,6 +9,7 @@
     "babel-loader": "^5.3.2",
     "babel-plugin-react-transform": "^1.1.1",
     "babel-runtime": "^5.8.24",
+    "body-parser": "^1.14.1",
     "css-loader": "^0.18.0",
     "cssnext-loader": "^1.0.1",
     "del": "^2.0.2",

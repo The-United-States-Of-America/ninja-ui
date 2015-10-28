@@ -7,6 +7,7 @@ let webpack = require('webpack')
 let conf = require('./webpack.config')
 let del = require('del')
 let express = require('express')
+let testServer = require('./testServer')
 
 gulp.task('prepare', function (callback) {
   del('target').then(function () {
@@ -41,7 +42,9 @@ gulp.task('build', ['prepare'], function (callback) {
   })
 })
 
-gulp.task('debug', ['prepare'], function () {
+gulp.task('dev', testServer)
+
+gulp.task('debug', ['prepare', 'testServer'], function () {
   let devConf = Object.create(conf)
 
   devConf.plugins = devConf.plugins || []
