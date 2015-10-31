@@ -5,7 +5,7 @@
   z-index: 100;
 }
 
-.sidebar :global(.segment) {
+.sidebar :global .segment {
   height: 100%;
   border-radius: 0;
 }

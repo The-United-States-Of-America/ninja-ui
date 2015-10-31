@@ -7,7 +7,7 @@ import login from './auth/reducers'
 import App from './App'
 import 'babel-core/polyfill'
 import 'whatwg-fetch'
-import 'semantic-ui-css/semantic'
+//import 'semantic-ui-css/semantic'
 import 'semantic-ui-css/semantic.css'
 
 if (DEBUG) {
@@ -25,15 +25,15 @@ if (DEBUG) {
     DevTools.instrument()
   )(createStore)
 } else {
-  var finalCreateStore = createStore
-
   var DevTools = () => <div />
+
+  var finalCreateStore = createStore
 }
 
 let store = finalCreateStore(combineReducers({
   ui,
   login
-}));
+}))
 
 ReactDOM.render(
   <Provider store={store}>
