@@ -2,9 +2,14 @@ import React, { Component } from 'react'
 import Gravatar from 'react-gravatar'
 import { sidebar, logoutButton } from './Sidebar.css'
 
-export default function Sidebar ({mobile, username, onLogout}) {
+export default function Sidebar ({mobile, username, onLogout, changeLocation}) {
   let position = mobile ? 'absolute' : 'inherit'
   let height = mobile ? 'calc(100vh - 4rem)' : '100vh'
+
+  let goToAppointments = () => changeLocation('appointments')
+  let goToFamily = () => changeLocation('family')
+  let goToMessages = () => changeLocation('messages')
+  let goToSettings = () => changeLocation('settings')
 
   return <div className={sidebar} style={{position, height}}>
     <div className="ui segment">
@@ -17,19 +22,19 @@ export default function Sidebar ({mobile, username, onLogout}) {
       </div>
       <div className="ui divider"></div>
       <div className="ui vertical fluid buttons">
-        <button className="ui basic button">
+        <button className="ui basic button" onClick={goToAppointments}>
           Appointments
         </button>
-        <button className="ui basic button">
+        <button className="ui basic button" onClick={goToFamily}>
           My Family
         </button>
-        <button className="ui basic button">
+        <button className="ui basic button" onClick={goToMessages}>
           Messages
         </button>
       </div>
       <div className="ui divider"></div>
         <div className="ui vertical fluid buttons">
-          <button className="ui basic button">
+          <button className="ui basic button" onClick={goToSettings}>
             Settings
           </button>
         </div>

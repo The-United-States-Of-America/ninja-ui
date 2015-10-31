@@ -10,9 +10,9 @@ export function toggleSidebar (dispatch) {
 export const CHANGE_LOCATION = 'CHANGE_LOCATION'
 export function changeLocation (dispatch) {
   return function (location) {
-    return {
+    dispatch({
       type: CHANGE_LOCATION,
       location
-    }
+    })
   }
 }

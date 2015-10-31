@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import uiSelector from './ui/selectors'
 import authSelector from './auth/selectors'
-import { toggleSidebar } from './ui/actions'
+import { toggleSidebar, changeLocation } from './ui/actions'
 import { doLogin, doLogout } from './auth/actions'
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
@@ -19,7 +19,11 @@ let select = state => ({
 @connect(select)
 export default class App extends Component {
   render() {
-    const { dispatch, mobile, showSidebar, isLoggedIn, username } = this.props
+    const { dispatch,
+            mobile,
+            showSidebar,
+            isLoggedIn,
+            username } = this.props
 
     let nav = !mobile
       ? null
@@ -33,8 +37,16 @@ export default class App extends Component {
         : <Sidebar
             mobile={mobile}
             username={username}
-            onLogout={doLogout(dispatch)} />}
+            onLogout={doLogout(dispatch)}
+            changeLocation={changeLocation(dispatch)} />}
     </ReactCSSTransitionGroup>
+
+    let view = (() => {
+      switch (location) {
+        default:
+          return <Dash mobile={mobile}/>
+      }
+    })()
 
     if (!isLoggedIn) {
       return <div style={{paddingTop: '5rem'}}>
@@ -45,7 +57,7 @@ export default class App extends Component {
         {nav}
         <div className={ninja}>
           {sidebar}
-          <Dash mobile={mobile}/>
+          {view}
         </div>
       </div>
     }
