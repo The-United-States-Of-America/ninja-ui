@@ -9,7 +9,10 @@ import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 import Dash from './components/Dash'
 import LoginPane from './components/LoginPane'
-import { ninja, ninjaContainer } from './App.css'
+import Settings from './components/Settings'
+import Family from './components/Family'
+import Messages from './components/Messages'
+import { ninja, ninjaContainer, ninjaView } from './App.css'
 
 let select = state => ({
   ...uiSelector(state),
@@ -23,7 +26,8 @@ export default class App extends Component {
             mobile,
             showSidebar,
             isLoggedIn,
-            username } = this.props
+            username,
+            location } = this.props
 
     let nav = !mobile
       ? null
@@ -43,6 +47,12 @@ export default class App extends Component {
 
     let view = (() => {
       switch (location) {
+        case 'settings':
+          return <Settings />
+        case 'family':
+          return <Family />
+        case 'messages':
+          return <Messages />
         default:
           return <Dash mobile={mobile}/>
       }
@@ -57,7 +67,9 @@ export default class App extends Component {
         {nav}
         <div className={ninja}>
           {sidebar}
-          {view}
+          <div className={ninjaView}>
+            {view}
+          </div>
         </div>
       </div>
     }

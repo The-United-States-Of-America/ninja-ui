@@ -1,10 +1,3 @@
-.dash {
-  flex-grow: 5;
-  height: 100%;
-  overflow: scroll;
-  margin-top: 0;
-}
-
 :global .clndr-controls div {
   background: #999;
   display: inline-block;

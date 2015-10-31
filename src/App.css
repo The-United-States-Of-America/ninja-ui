@@ -14,6 +14,13 @@
   height: 100%;
 }
 
+.ninjaView {
+  flex-grow: 5;
+  height: 100%;
+  overflow: scroll;
+  margin-top: 0;
+}
+
 :global .slide-left-enter, :global .slide-left-leave {
   transition: 500ms ease all;
 }

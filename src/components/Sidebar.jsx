@@ -17,24 +17,28 @@ export default function Sidebar ({mobile, username, onLogout, changeLocation}) {
       <div className={logoutButton}>
         <button className="ui right labeled icon button" onClick={onLogout}>
           <i className="sign out icon"></i>
-            Logout
+          Logout
         </button>
       </div>
       <div className="ui divider"></div>
       <div className="ui vertical fluid buttons">
-        <button className="ui basic button" onClick={goToAppointments}>
+        <button className="ui right labeled basic icon button" onClick={goToAppointments}>
+          <i className="calendar icon" style={{background: 'none'}}></i>
           Appointments
         </button>
-        <button className="ui basic button" onClick={goToFamily}>
+        <button className="ui right labeled basic icon button" onClick={goToFamily}>
+          <i className="group icon" style={{background: 'none'}}></i>
           My Family
         </button>
-        <button className="ui basic button" onClick={goToMessages}>
+        <button className="ui right labeled basic icon button" onClick={goToMessages}>
+          <i className="mail icon" style={{background: 'none'}}></i>
           Messages
         </button>
       </div>
       <div className="ui divider"></div>
         <div className="ui vertical fluid buttons">
-          <button className="ui basic button" onClick={goToSettings}>
+          <button className="ui right labeled basic icon button" onClick={goToSettings}>
+            <i className="settings icon" style={{background: 'none'}}></i>
             Settings
           </button>
         </div>
