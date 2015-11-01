@@ -58,6 +58,8 @@ export default class App extends Component {
       }
     })()
 
+    let height = mobile ? 'calc(100vh - 4rem)' : '100vh'
+
     if (!isLoggedIn) {
       return <div style={{paddingTop: '5rem'}}>
         <LoginPane onLogin={doLogin(dispatch)} />
@@ -67,7 +69,7 @@ export default class App extends Component {
         {nav}
         <div className={ninja}>
           {sidebar}
-          <div className={ninjaView}>
+          <div className={ninjaView} style={{height}}>
             {view}
           </div>
         </div>

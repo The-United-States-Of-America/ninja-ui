@@ -4,9 +4,7 @@ import './Dash.css'
 
 export default class Dash extends Component {
   render() {
-    let height = this.props.mobile ? 'calc(100vh - 4rem)' : '100vh'
-
-    return <div className="ui basic segment" style={{height}}>
+    return <div className="ui basic segment">
       <Calendar
         showDaysOfWeek={true}
         forceSixRows={false}
