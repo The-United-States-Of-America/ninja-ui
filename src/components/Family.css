@@ -1,1 +1,12 @@
+.family {
+  display: flex;
+  padding: 2rem;
+  justify-content: space-around;
+  flex-flow: row wrap;
+}
 
+.member {
+  text-align: center;
+  flex-grow: 1;
+  padding-bottom: 2rem;
+}
