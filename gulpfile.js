@@ -13,17 +13,15 @@ gulp.task('prepare', function (cb) {
   del('target').then(function () {
     gulp.src(path.join('src', 'index.html'))
       .pipe(gulp.dest('target'))
-      .on('end', cb)
+      .on('end', function () {
+        gulp.src('resources/**')
+          .pipe(gulp.dest('target'))
+          .on('end', cb)
+      })
   })
 })
 
-gulp.task('resource', function (cb) {
-  gulp.src('resources/**')
-    .pipe(gulp.dest('target'))
-    .on('end', cb)
-})
-
-gulp.task('build', ['prepare', 'resource'], function (callback) {
+gulp.task('build', ['prepare'], function (callback) {
   process.env.NODE_ENV = 'production'
   let prodConf = Object.create(conf)
 
@@ -51,18 +49,21 @@ gulp.task('backend', function () {
   gulp.src('node_modules/ninja-backend-dbsrv/src/**/*.js')
     .pipe(babel())
     .pipe(gulp.dest('node_modules/ninja-backend-dbsrv/dist'))
+    .on('end', function () {
+      gutil.log('[dbsrv]', 'Starting Database Service')
+      require('ninja-backend-dbsrv/dist/app')
+    })
 
   gulp.src('node_modules/ninja-backend-authsrv/src/**/*.js')
     .pipe(babel())
     .pipe(gulp.dest('node_modules/ninja-backend-authsrv/dist'))
-
-  gutil.log('[dbsrv]', 'Starting Database Service')
-  require('ninja-backend-dbsrv/dist/app')
-  gutil.log('[authsrv]', 'Starting Authenticationb Service')
-  require('ninja-backend-authsrv/dist/app')
+    .on('end', function () {
+      gutil.log('[authsrv]', 'Starting Authenticationb Service')
+      require('ninja-backend-authsrv/dist/app')
+    })
 })
 
-gulp.task('ui', ['prepare', 'resource'], function () {
+gulp.task('ui', ['prepare'], function () {
   let devConf = Object.create(conf)
 
   devConf.plugins = devConf.plugins || []
