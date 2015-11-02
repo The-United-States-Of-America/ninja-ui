@@ -7,6 +7,7 @@
   "devDependencies": {
     "authsrv": "the-united-states-of-america/ninja-backend-authsrv",
     "babel-core": "^5.8.25",
+    "babel-eslint": "^4.1.3",
     "babel-loader": "^5.3.2",
     "babel-plugin-react-transform": "^1.1.1",
     "css-loader": "^0.18.0",
