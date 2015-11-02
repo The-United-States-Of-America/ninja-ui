@@ -2,18 +2,10 @@ import React, { Component } from 'react'
 import { loginPane } from './LoginPane.css'
 
 export default class LoginPane extends Component {
-  constructor(props) {
-    super(props)
-
-    this.handleEmailUpdate = this.handleEmailUpdate.bind(this)
-    this.handlePasswordUpdate = this.handlePasswordUpdate.bind(this)
-    this.handleLogin = this.handleLogin.bind(this)
-
-    this.state = {
-      email: '',
-      password: '',
-      usertype: ''
-    }
+  state = {
+    email: '',
+    password: '',
+    usertype: ''
   }
 
   handleEmailUpdate(e) {
@@ -43,7 +35,7 @@ export default class LoginPane extends Component {
                 type="text"
                 placeholder="Email"
                 value={this.state.email}
-                onChange={this.handleEmailUpdate} />
+                onChange={::this.handleEmailUpdate} />
               </div>
             </div>
           <div className="field">
@@ -53,7 +45,7 @@ export default class LoginPane extends Component {
                 type="password"
                 placeholder="Password"
                 value={this.state.password}
-                onChange={this.handlePasswordUpdate} />
+                onChange={::this.handlePasswordUpdate} />
             </div>
           </div>
           <div className="field">
@@ -64,7 +56,7 @@ export default class LoginPane extends Component {
               <option value="admin">Administrator</option>
             </select>
           </div>
-          <button className="ui fluid blue button" type="submit" onClick={this.handleLogin}>
+          <button className="ui fluid blue button" type="submit" onClick={::this.handleLogin}>
             Login
           </button>
         </div>

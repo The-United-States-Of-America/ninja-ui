@@ -15,18 +15,23 @@ if (DEBUG) {
   let LogMonitor = require('redux-devtools-log-monitor')
   let DockMonitor = require('redux-devtools-dock-monitor')
 
-  var DevTools = createDevTools(
-    <DockMonitor toggleVisibilityKey='H' changePositionKey='Q' defaultIsVisible={false}>
-      <LogMonitor />
-    </DockMonitor>
-  )
+  var finalCreateStore
+  var devTools = (() => {
+    let DevTools = createDevTools(
+      <DockMonitor toggleVisibilityKey='H' changePositionKey='Q' defaultIsVisible={false}>
+        <LogMonitor />
+      </DockMonitor>
+    )
 
-  var finalCreateStore = compose(
-    DevTools.instrument()
-  )(createStore)
+    finalCreateStore = compose(
+      DevTools.instrument()
+    )(createStore)
+
+    return <DevTools />
+  })()
+  
 } else {
-  var DevTools = () => <div />
-
+  var devTools = null
   var finalCreateStore = createStore
 }
 
@@ -38,9 +43,9 @@ let store = finalCreateStore(combineReducers({
 ReactDOM.render(
   <Provider store={store}>
     <div>
-      <DevTools />
+      {devTools}
       <App />
     </div>
   </Provider>,
   document.getElementById('root')
-);
+)
