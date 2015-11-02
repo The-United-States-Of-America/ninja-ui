@@ -6,7 +6,7 @@ let initialState = () => ({
   showSidebar: document.body.clientWidth >= 600
 })
 
-export default function reduce(state = initialState(), action) {
+export default function reduce (state = initialState(), action) {
   switch (action.type) {
     case TOGGLE_SIDEBAR:
       return {

@@ -18,8 +18,7 @@
 
 .ninjaView {
   flex-grow: 5;
-  /*height: 100%;*/
-  overflow: scroll;
+  overflow: auto;
   margin-top: 0;
 }
 

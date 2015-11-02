@@ -7,7 +7,7 @@ let webpack = require('webpack')
 let conf = require('./webpack.config')
 let del = require('del')
 let express = require('express')
-let babel = require("gulp-babel")
+let babel = require('gulp-babel')
 
 gulp.task('prepare', function (callback) {
   del('target').then(function () {

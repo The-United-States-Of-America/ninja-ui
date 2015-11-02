@@ -21,7 +21,16 @@ let select = state => ({
 
 @connect(select)
 export default class App extends Component {
-  render() {
+  static propTypes = {
+    dispatch: React.PropTypes.func,
+    mobile: React.PropTypes.bool,
+    showSidebar: React.PropTypes.bool,
+    isLoggedIn: React.PropTypes.bool,
+    username: React.PropTypes.string,
+    location: React.PropTypes.string
+  }
+
+  render () {
     const { dispatch,
             mobile,
             showSidebar,
@@ -35,7 +44,7 @@ export default class App extends Component {
           onToggleSidebar={toggleSidebar(dispatch)}
           sidebarVisible={showSidebar} />
 
-    let sidebar = <ReactCSSTransitionGroup transitionName="slide-left" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+    let sidebar = <ReactCSSTransitionGroup transitionName='slide-left' transitionEnterTimeout={500} transitionLeaveTimeout={500}>
       {!showSidebar
         ? null
         : <Sidebar

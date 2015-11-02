@@ -1,13 +1,12 @@
 'use strict'
 
 let path = require('path')
-let webpack = require('webpack')
 
 module.exports = {
   entry: path.join(__dirname, 'src', 'index.jsx'),
   output: {
     path: path.join(__dirname, 'target'),
-    filename: 'app.js',
+    filename: 'app.js'
   },
   module: {
     loaders: [

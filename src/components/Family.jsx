@@ -38,7 +38,7 @@ export default function Family () {
 
   return <div className={family}>
     {myFamily.map(fam => <div key={fam.id} className={member}>
-      <Gravatar className="ui small centered circular image" email={fam.email} size={500}/>
+      <Gravatar className='ui small centered circular image' email={fam.email} size={500}/>
       <h3>{fam.firstName} {fam.lastName}</h3>
     </div>)}
   </div>

@@ -3,10 +3,10 @@ import { Calendar } from 'react-calendar-component'
 import './Dash.css'
 
 export default class Dash extends Component {
-  render() {
-    return <div className="ui basic segment">
+  render () {
+    return <div className='ui basic segment'>
       <Calendar
-        showDaysOfWeek={true}
+        showDaysOfWeek
         forceSixRows={false}
       />
     </div>
