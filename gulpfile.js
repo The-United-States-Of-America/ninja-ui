@@ -18,7 +18,9 @@ gulp.task('prepare', function (callback) {
   })
 })
 
-gulp.task('build', ['prepare'], function (callback) {
+gulp.task('resource', () => gulp.src('resources/**').pipe(gulp.dest('target')))
+
+gulp.task('build', ['prepare', 'resource'], function (callback) {
   process.env.NODE_ENV = 'production'
   let prodConf = Object.create(conf)
 
@@ -57,7 +59,7 @@ gulp.task('backend', function () {
   require('./node_modules/ninja-backend-authsrv/dist/app')
 })
 
-gulp.task('ui', ['prepare'], function () {
+gulp.task('ui', ['prepare', 'resource'], function () {
   let devConf = Object.create(conf)
 
   devConf.plugins = devConf.plugins || []

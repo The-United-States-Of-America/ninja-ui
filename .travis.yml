@@ -13,7 +13,7 @@ install:
 
 script:
     - npm test
-    - gulp build
+    - gulp
 
 after_success:
     - bash script/deploy
