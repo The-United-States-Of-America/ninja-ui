@@ -57,9 +57,9 @@ gulp.task('backend', function () {
     .pipe(gulp.dest('node_modules/ninja-backend-authsrv/dist'))
 
   gutil.log('[dbsrv]', 'Starting Database Service')
-  require('./node_modules/ninja-backend-dbsrv/dist/app')
+  require('ninja-backend-dbsrv/dist/app')
   gutil.log('[authsrv]', 'Starting Authenticationb Service')
-  require('./node_modules/ninja-backend-authsrv/dist/app')
+  require('ninja-backend-authsrv/dist/app')
 })
 
 gulp.task('ui', ['prepare', 'resource'], function () {
