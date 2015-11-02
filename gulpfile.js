@@ -9,16 +9,19 @@ let del = require('del')
 let express = require('express')
 let babel = require('gulp-babel')
 
-gulp.task('prepare', function (callback) {
+gulp.task('prepare', function (cb) {
   del('target').then(function () {
     gulp.src(path.join('src', 'index.html'))
       .pipe(gulp.dest('target'))
-
-    callback()
+      .on('end', cb)
   })
 })
 
-gulp.task('resource', () => gulp.src('resources/**').pipe(gulp.dest('target')))
+gulp.task('resource', function (cb) {
+  gulp.src('resources/**')
+    .pipe(gulp.dest('target'))
+    .on('end', cb)
+})
 
 gulp.task('build', ['prepare', 'resource'], function (callback) {
   process.env.NODE_ENV = 'production'
