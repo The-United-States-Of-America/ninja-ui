@@ -12,6 +12,7 @@ install:
     - npm install
 
 script:
+    - npm test
     - gulp build
 
 after_success:
