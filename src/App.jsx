@@ -26,7 +26,8 @@ export default class App extends Component {
     mobile: React.PropTypes.bool,
     showSidebar: React.PropTypes.bool,
     isLoggedIn: React.PropTypes.bool,
-    username: React.PropTypes.string,
+    email: React.PropTypes.string,
+    failure: React.PropTypes.bool,
     location: React.PropTypes.string
   }
 
@@ -35,7 +36,8 @@ export default class App extends Component {
             mobile,
             showSidebar,
             isLoggedIn,
-            username,
+            email,
+            failure,
             location } = this.props
 
     let nav = !mobile
@@ -49,7 +51,7 @@ export default class App extends Component {
         ? null
         : <Sidebar
             mobile={mobile}
-            username={username}
+            email={email}
             onLogout={doLogout(dispatch)}
             changeLocation={changeLocation(dispatch)} />}
     </ReactCSSTransitionGroup>
@@ -71,7 +73,7 @@ export default class App extends Component {
 
     if (!isLoggedIn) {
       return <div style={{paddingTop: '5rem'}}>
-        <LoginPane onLogin={doLogin(dispatch)} />
+        <LoginPane onLogin={doLogin(dispatch)} failure={failure} />
       </div>
     } else {
       return <div className={ninjaContainer}>

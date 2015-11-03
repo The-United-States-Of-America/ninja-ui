@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { createStore, combineReducers, compose } from 'redux'
 import { Provider } from 'react-redux'
 import ui from './ui/reducers'
-import login from './auth/reducers'
+import auth from './auth/reducers'
 import App from './App'
 import 'babel-core/polyfill'
 import 'whatwg-fetch'
@@ -35,7 +35,7 @@ if (DEBUG) {
 
 let store = finalCreateStore(combineReducers({
   ui,
-  login
+  auth
 }))
 
 ReactDOM.render(

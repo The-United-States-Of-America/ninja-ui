@@ -1,15 +1,23 @@
-export const DO_LOGIN = 'DO_LOGIN'
-export function doLogin (dispatch) {
-  return async function (username, password) {
-    let user = await fetch('http://jsonplaceholder.typicode.com/posts/1')
-    let userData = await user.json()
-    console.log(userData)
+import { AUTHSRV } from '../urls'
 
-    dispatch({
-      type: DO_LOGIN,
-      username,
-      password
+export const FAILED_LOGIN = 'FAILED_LOGIN'
+export const SUCCESS_LOGIN = 'SUCCESS_LOGIN'
+export function doLogin (dispatch) {
+  return async function (email, password, usertype) {
+    let response = await fetch(`${AUTHSRV}/${usertype}/login`, {
+      method: 'post',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
     })
+
+    if (response.status >= 400) {
+      dispatch({ type: FAILED_LOGIN })
+    } else {
+      dispatch({
+        type: SUCCESS_LOGIN,
+        email
+      })
+    }
   }
 }
 

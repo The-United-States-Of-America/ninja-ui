@@ -3,13 +3,14 @@ import { loginPane } from './LoginPane.css'
 
 export default class LoginPane extends Component {
   static propTypes = {
-    onLogin: React.PropTypes.func
+    onLogin: React.PropTypes.func,
+    failure: React.PropTypes.bool
   }
 
   state = {
     email: '',
     password: '',
-    usertype: ''
+    usertype: 'client'
   }
 
   handleEmailUpdate (e) {
@@ -24,13 +25,19 @@ export default class LoginPane extends Component {
     })
   }
 
+  handleUsertype (e) {
+    this.setState({
+      usertype: e.target.value
+    })
+  }
+
   handleLogin () {
     this.props.onLogin(this.state.email, this.state.password, this.state.usertype)
   }
 
   render () {
     return <div className={loginPane}>
-      <div className='ui piled segment'>
+      <div className={`ui piled segment ${this.props.failure ? 'red' : ''}`}>
         <div className='ui large form'>
           <div className='field'>
             <label>Email</label>
@@ -54,10 +61,10 @@ export default class LoginPane extends Component {
           </div>
           <div className='field'>
             <label>User Type</label>
-            <select className='ui dropdown'>
-              <option value='patient'>Patient</option>
-              <option value='doctor'>Doctor</option>
-              <option value='admin'>Administrator</option>
+            <select className='ui dropdown' value={this.state.usertype} onChange={::this.handleUsertype}>
+              <option value='client'>Client</option>
+              <option value='provider'>Provider</option>
+              <option value='administrator'>Administrator</option>
             </select>
           </div>
           <button className='ui fluid blue button' type='submit' onClick={::this.handleLogin}>
