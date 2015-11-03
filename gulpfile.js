@@ -78,8 +78,19 @@ gulp.task('ui', ['prepare'], function () {
   devConf.debug = true
   devConf.devtool = 'eval-source-map'
 
-  let compiler = webpack(devConf)
   let app = express()
+  let compiler = webpack(devConf, function (err, stats) {
+    if (err) throw new gutil.PluginError('webpack', err)
+
+    gutil.log(`[${gutil.colors.grey('webpack')}]`, stats.toString({
+      chunks: false,
+      version: false,
+      timings: false,
+      assets: false,
+      colors: true
+    }))
+    gutil.log(`[${gutil.colors.grey('ui')}]`, 'Listening at', gutil.colors.cyan('http://localhost:3000'))
+  })
 
   app.use(require('webpack-dev-middleware')(compiler, {
     publicPath: devConf.output.publicPath,
@@ -98,8 +109,6 @@ gulp.task('ui', ['prepare'], function () {
   app.listen(3000, 'localhost', function (err) {
     if (err) {
       gutil.log(`[${gutil.colors.grey('ui')}]`, err)
-    } else {
-      gutil.log(`[${gutil.colors.grey('ui')}]`, 'Listening at', gutil.colors.cyan('http://localhost:3000'))
     }
   })
 })
