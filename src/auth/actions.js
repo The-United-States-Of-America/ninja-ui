@@ -1,6 +1,10 @@
 export const DO_LOGIN = 'DO_LOGIN'
 export function doLogin (dispatch) {
-  return function (username, password) {
+  return async function (username, password) {
+    let user = await fetch('http://jsonplaceholder.typicode.com/posts/1')
+    let userData = await user.json()
+    console.log(userData)
+
     dispatch({
       type: DO_LOGIN,
       username,

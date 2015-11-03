@@ -1,5 +1,4 @@
 'use strict'
-
 let path = require('path')
 let gulp = require('gulp')
 let gutil = require('gulp-util')
@@ -50,7 +49,7 @@ gulp.task('backend', function () {
     .pipe(babel())
     .pipe(gulp.dest('node_modules/ninja-backend-dbsrv/dist'))
     .on('end', function () {
-      gutil.log('[dbsrv]', 'Starting Database Service')
+      gutil.log(`[${gutil.colors.grey('dbsrv')}]`, 'Starting Database Service')
       require('ninja-backend-dbsrv/dist/app')
     })
 
@@ -58,7 +57,7 @@ gulp.task('backend', function () {
     .pipe(babel())
     .pipe(gulp.dest('node_modules/ninja-backend-authsrv/dist'))
     .on('end', function () {
-      gutil.log('[authsrv]', 'Starting Authenticationb Service')
+      gutil.log(`[${gutil.colors.grey('authsrv')}]`, 'Starting Authentication Service')
       require('ninja-backend-authsrv/dist/app')
     })
 })
@@ -84,7 +83,10 @@ gulp.task('ui', ['prepare'], function () {
 
   app.use(require('webpack-dev-middleware')(compiler, {
     publicPath: devConf.output.publicPath,
-    colors: true
+    noInfo: true,
+    stats: {
+      colors: true
+    }
   }))
 
   app.use(require('webpack-hot-middleware')(compiler))
@@ -95,9 +97,9 @@ gulp.task('ui', ['prepare'], function () {
 
   app.listen(3000, 'localhost', function (err) {
     if (err) {
-      console.log(err)
+      gutil.log(`[${gutil.colors.grey('ui')}]`, err)
     } else {
-      console.log('Listening at http://localhost:3000')
+      gutil.log(`[${gutil.colors.grey('ui')}]`, 'Listening at', gutil.colors.cyan('http://localhost:3000'))
     }
   })
 })
