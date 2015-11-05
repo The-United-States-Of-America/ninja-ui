@@ -1,5 +1,8 @@
 import React from 'react'
 
+/**
+ * Pane to list all messages for a user
+ */
 export default function Messages (props) {
   let messages = [
     {title: 'A Message', body: 'do a thing'},

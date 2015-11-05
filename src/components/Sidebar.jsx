@@ -2,6 +2,11 @@ import React from 'react'
 import Gravatar from 'react-gravatar'
 import { sidebar, logoutButton } from './Sidebar.css'
 
+/**
+ * Sidebar for application
+ *
+ * Contains several buttons on the side for navigation
+ */
 export default function Sidebar ({mobile, email, onLogout, changeLocation}) {
   let position = mobile ? 'absolute' : 'inherit'
   let height = mobile ? 'calc(100vh - 4rem)' : '100vh'
@@ -44,4 +49,23 @@ export default function Sidebar ({mobile, email, onLogout, changeLocation}) {
         </div>
     </div>
   </div>
+}
+
+Sidebar.propTypes = {
+  /**
+   * If the sidebar should be rendered as mobile or not
+   */
+  mobile: React.PropTypes.bool,
+  /**
+   * Email of the current user
+   */
+  email: React.PropTypes.string,
+  /**
+   * Action to perform when the user wants to log out
+   */
+  onLogout: React.PropTypes.func,
+  /**
+   * A function that takes in a string location and adjusts the app accordingly
+   */
+  changeLocation: React.PropTypes.func
 }

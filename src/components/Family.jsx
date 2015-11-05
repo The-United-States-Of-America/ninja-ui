@@ -2,6 +2,9 @@ import React from 'react'
 import Gravatar from 'react-gravatar'
 import { family, member } from './Family.css'
 
+/**
+ * Basic view to display all members of a family
+ */
 export default function Family () {
   let myFamily = [
     {

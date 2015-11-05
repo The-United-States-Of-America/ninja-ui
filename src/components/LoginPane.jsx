@@ -1,9 +1,18 @@
 import React, { Component } from 'react'
 import { loginPane } from './LoginPane.css'
 
+/**
+ * Shows a view for logging into the application
+ */
 export default class LoginPane extends Component {
   static propTypes = {
+    /**
+     * Action to perform on login
+     */
     onLogin: React.PropTypes.func,
+    /**
+     * If the previous login failed
+     */
     failure: React.PropTypes.bool
   }
 
