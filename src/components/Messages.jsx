@@ -65,21 +65,37 @@ export default class Messages extends Component {
 
   messageView (message) {
     if (message.type === 'invite') {
-      return <div>
-        <h2>Congrats! You've been invited to the {message.name} Family!</h2>
-        <p>
-          This means you'll be able to see all of the documents shared by
-          the people in your family. They'll also be able to see the documents
-          you share with them! Make sure you want to join though, you can only
-          be a part of one family at a time.
-        </p>
-        <button className='ui blue button' onClick={() => ::this.acceptInvite(message)}>
-          Accept
-        </button>
-        <button className='ui red button' onClick={() => ::this.declineInvite(message)}>
-          Decline
-        </button>
-      </div>
+      if (this.props.user.usertype === 'client') {
+        return <div>
+          <h2>Congrats! You've been invited to the {message.name} Family!</h2>
+          <p>
+            This means you'll be able to see all of the documents shared by
+            the people in your family. They'll also be able to see the documents
+            you share with them! Make sure you want to join though, you can only
+            be a part of one family at a time.
+          </p>
+          <button className='ui blue button' onClick={() => ::this.acceptInvite(message)}>
+            Accept
+          </button>
+          <button className='ui red button' onClick={() => ::this.declineInvite(message)}>
+            Decline
+          </button>
+        </div>
+      } else {
+        return <div>
+          <h2>Congrats! You've been invited to the {message.name} Organization!</h2>
+          <p>
+            This means that potential clients can schedule appointments with any of your new colleagues when they preform a provider search.
+            You will also have access to all the information of all patients within your organization!
+          </p>
+          <button className='ui blue button' onClick={() => ::this.acceptInvite(message)}>
+            Accept
+          </button>
+          <button className='ui red button' onClick={() => ::this.declineInvite(message)}>
+            Decline
+          </button>
+        </div>
+      }
     } else {
       return <div></div>
     }
