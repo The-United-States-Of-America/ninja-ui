@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { DBSRV } from '../urls'
+import { postJson } from '../utils'
 
 /**
  * Pane to list all messages for a user
  */
 export default class Messages extends Component {
   static propTypes = {
-    userId: React.PropTypes.string,
-    usertype: React.PropTypes.string,
+    user: React.PropTypes.object,
     mobile: React.PropTypes.bool
   }
 
@@ -16,44 +16,44 @@ export default class Messages extends Component {
     viewing: null
   }
 
-  formatInvite (invite) {
-    return <div>
-      <h2>Congrats! You've been invited to the {invite.name} Family!</h2>
-      <p>
-        This means you'll be able to see all of the documents shared by
-        the people in your family. They'll also be able to see the documents
-        you share with them! Make sure you want to join though, you can only
-        be a part of one family at a time.
-      </p>
-      <button className='ui blue button'>
-        Accept
-      </button>
-      <button className='ui red button'>
-        Decline
-      </button>
-    </div>
+  async acceptInvite (invite) {
+    let inviteType = this.props.user.usertype === 'client' ? 'accept_fam_invite' : 'accept_org_invite'
+    let body = this.props.user.usertype === 'client'
+      ? { clientId: this.props.user.id, familyId: invite.id }
+      : { userId: this.props.user.id, organizationId: invite.id }
+
+    await postJson(`${DBSRV}/client/${inviteType}`, body)
   }
 
-  formatInviteHeader (message) {
-    return <div>
-      <h4>Congrats! You've been invited...</h4>
-      <p>This means you'll be able to...</p>
-    </div>
+  async declineInvite (invite) {
+    let inviteType = this.props.user.usertype === 'client' ? 'reject_fam_invite' : 'reject_org_invite'
+    let body = this.props.usertype === 'client'
+      ? { clientId: this.props.user.id, familyId: invite.id }
+      : { userId: this.props.user.id, organizationId: invite.id }
+
+    await postJson(`${DBSRV}/client/${inviteType}`, body)
   }
 
   async componentDidMount () {
     try {
-      let inviteType = this.props.usertype === 'client' ? 'get_family_invites' : 'get_org_invites'
-      let inviteResponse = await fetch(`${DBSRV}/client/${inviteType}/${this.props.userId}`)
-      let invite = await inviteResponse.json()
+      let inviteType = this.props.user.usertype === 'client' ? 'get_family_invites' : 'get_org_invites'
+      let inviteResponse = await fetch(`${DBSRV}/client/${inviteType}/${this.props.user.id}`)
 
-      this.setState({
-        messages: [{
-          ...invite,
-          type: 'invite',
-          inviteType: this.props.usertype
-        }]
-      })
+      if (inviteResponse.status >= 400) {
+        this.setState({
+          messages: []
+        })
+      } else {
+        let invite = await inviteResponse.json()
+
+        this.setState({
+          messages: [{
+            ...invite,
+            type: 'invite',
+            inviteType: this.props.user.usertype
+          }]
+        })
+      }
     } catch (e) {
       this.setState({
         messages: []
@@ -65,7 +65,10 @@ export default class Messages extends Component {
     return <div className='ui celled list'>
       {messages.map((message, idx) => (
         <div className='item' key={idx} onClick={viewMessage(idx)}>
-          {this.formatInviteHeader(message)}
+          <div>
+            <h4>Congrats! You've been invited...</h4>
+            <p>This means you'll be able to...</p>
+          </div>
         </div>
       ))}
     </div>
@@ -73,7 +76,21 @@ export default class Messages extends Component {
 
   messageView (message) {
     if (message.type === 'invite') {
-      return this.formatInvite(message)
+      return <div>
+        <h2>Congrats! You've been invited to the {message.name} Family!</h2>
+        <p>
+          This means you'll be able to see all of the documents shared by
+          the people in your family. They'll also be able to see the documents
+          you share with them! Make sure you want to join though, you can only
+          be a part of one family at a time.
+        </p>
+        <button className='ui blue button' onClick={() => ::this.acceptInvite(message)}>
+          Accept
+        </button>
+        <button className='ui red button' onClick={() => ::this.declineInvite(message)}>
+          Decline
+        </button>
+      </div>
     } else {
       return <div></div>
     }
@@ -92,7 +109,7 @@ export default class Messages extends Component {
           <a href='#' onClick={viewMessage(null)}>&#10094; Back</a>
         </div>
         <div className='ui divider'></div>
-        {this.messageView(this.state.messages[this.state.viewing])}
+        {::this.messageView(this.state.messages[this.state.viewing])}
       </div>
     }
   }
