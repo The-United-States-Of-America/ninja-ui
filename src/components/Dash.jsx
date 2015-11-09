@@ -26,7 +26,8 @@ export default class Dash extends Component {
 
     let createResponse = await postJson(`${DBSRV}/appt/create`,
       { clientId: this.props.user.id, providerId: provider.id, state: this.state.state, info: this.state.info, comments: this.state.comments })
-    let { id } = await createResponse.json()
+
+    await createResponse.json()
   }
 
   // The sub-variable state can be [1: Requested, 2: Modified, 3: Approved]

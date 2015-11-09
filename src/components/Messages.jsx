@@ -27,7 +27,7 @@ export default class Messages extends Component {
 
   async declineInvite (invite) {
     let inviteType = this.props.user.usertype === 'client' ? 'reject_fam_invite' : 'reject_org_invite'
-    let body = this.props.usertype === 'client'
+    let body = this.props.user.usertype === 'client'
       ? { clientId: this.props.user.id, familyId: invite.id }
       : { userId: this.props.user.id, organizationId: invite.id }
 
@@ -97,7 +97,7 @@ export default class Messages extends Component {
   }
 
   mobileView () {
-    let viewMessage = (viewing) => (() => this.setState({ viewing }))
+    let viewMessage = (viewing) => () => this.setState({ viewing })
 
     if (this.state.viewing === null) {
       return <div>

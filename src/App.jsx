@@ -82,7 +82,6 @@ export default class App extends Component {
 
     let height = mobile ? 'calc(100vh - 4rem)' : '100vh'
 
-
     return <div className={ninjaContainer}>
       {nav}
       <div className={ninja}>
