@@ -50,8 +50,8 @@ export default class Organizations extends Component {
   render () {
     let organizations = <div className='ui basic segment relaxed divided list'>
       <h2>My Organizations</h2>
-      {this.state.organizations.map(org => {
-        return <div className='item'>
+      {this.state.organizations.map((org, idx) => {
+        return <div className='item' key={idx}>
           <i className='large building middle aligned icon'></i>
           <div className='content'>
             <a className='header'>{ org.name }</a>

@@ -53,12 +53,12 @@ export default function Sidebar ({mobile, user, onLogout, changeLocation}) {
         </button>
       </div>
       <div className='ui divider'></div>
-        <div className='ui vertical fluid buttons'>
-          <button className='ui right labeled basic icon button' onClick={goToSettings}>
-            <i className='settings icon' style={{background: 'none'}}></i>
-            Settings
-          </button>
-        </div>
+      {/*<div className='ui vertical fluid buttons'>
+        <button className='ui right labeled basic icon button' onClick={goToSettings}>
+          <i className='settings icon' style={{background: 'none'}}></i>
+          Settings
+        </button>
+      </div>*/}
     </div>
   </div>
 }

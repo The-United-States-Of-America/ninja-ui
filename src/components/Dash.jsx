@@ -28,6 +28,11 @@ export default class Dash extends Component {
       { clientId: this.props.user.id, providerId: provider.id, state: this.state.state, info: this.state.info, comments: this.state.comments })
 
     await createResponse.json()
+    this.setState({
+      info: '',
+      comments: '',
+      providerEmail: ''
+    })
   }
 
   // The sub-variable state can be [1: Requested, 2: Modified, 3: Approved]
@@ -46,12 +51,11 @@ export default class Dash extends Component {
       let URL = (this.props.user.usertype === 'client') ? `${DBSRV}/appt/client/${this.props.user.id}` : `${DBSRV}/appt/provider/${this.props.user.id}`
       let response = await fetch(URL)
       let appointments = await response.json()
-      console.log(appointments)
 
       this.setState({
         appointments: appointments.map(appt => ({
           ...appt,
-          dateRequested: (new Date(appt.dateRequested)).toISOString().slice(0, 10)
+          dateRequested: new Date(appt.dateRequested)
         }))
       })
     }
@@ -61,6 +65,36 @@ export default class Dash extends Component {
     this.setState({
       showMakeAppt: true
     })
+  }
+
+  async approveAppt (appt) {
+    await postJson(`${DBSRV}/appt/update`, {
+      query: {
+        clientId: parseInt(appt.clientId),
+        providerId: parseInt(appt.providerId),
+        dateRequested: appt.dateRequested
+      },
+      update: {
+        state: 3
+      }
+    })
+
+    this.componentDidMount()
+  }
+
+  async declineAppt (appt) {
+    await postJson(`${DBSRV}/appt/update`, {
+      query: {
+        clientId: parseInt(appt.clientId),
+        providerId: parseInt(appt.providerId),
+        dateRequested: appt.dateRequested.toString()
+      },
+      update: {
+        state: 0
+      }
+    })
+
+    this.componentDidMount()
   }
 
   render () {
@@ -95,35 +129,59 @@ export default class Dash extends Component {
         Schedule Appointment
       </button>
 
-    // let appointments = <div className='ui list'>
-    //   <h3 className='ui center aligned header'>Upcoming Appointments</h3>
-    //   {this.state.appointments.map((appt, idx) => <div className='item' key={idx}>
-    //     <h4>Appointment on {appt.dateRequested}</h4>
-    //   </div>)}
-    // </div>
-
-    let appointments = <div className='ui cards'>
-      {this.state.appointments.map((appt, idx) => <div className='card' key={idx}>
-        <div className='content'>
-          <Gravatar className='ui right floated mini circular image' email={appt.provider.email}/>
-          <div className='header'>
-            Appointment on {appt.dateRequested}
-          </div>
-          <div className='meta'>
-            with <strong>{appt.provider.prefix}{appt.provider.firstName}{appt.provider.lastName}</strong>
-          </div>
-          <div className='description'>
-            {appt.info}
-          </div>
+    let appointments = (() => {
+      if (this.props.user.usertype === 'client') {
+        return <div className='ui cards'>
+          {this.state.appointments.map((appt, idx) => <div className='card' key={idx}>
+            <div className='content'>
+              <Gravatar className='ui right floated mini circular image' email={appt.provider.email}/>
+              <div className='header'>
+                Appointment on {appt.dateRequested.toISOString().slice(0, 10)}
+              </div>
+              <div className='meta'>
+                with <strong>{appt.provider.prefix}{appt.provider.firstName}{appt.provider.lastName}</strong>
+              </div>
+              <div className='description'>
+                {appt.info}
+              </div>
+            </div>
+            <div className='extra content'>
+              {appt.state === 1 && this.props.user.usertype === 'provider'
+                ? <div className='ui two buttons'>
+                  <div className='ui basic green button'>Approve</div>
+                  <div className='ui basic red button'>Decline</div>
+                </div>
+                : appt.state === 3
+                  ? <p>All Set!</p>
+                  : <p>Pending Approval...</p>}
+            </div>
+          </div>)}
         </div>
-        <div className='extra content'>
-          <div className='ui two buttons'>
-            <div className='ui basic green button'>Approve</div>
-            <div className='ui basic red button'>Decline</div>
-          </div>
+      } else  {
+        return <div className='ui cards'>
+          {this.state.appointments.map((appt, idx) => <div className='card' key={idx}>
+            <div className='content'>
+              <Gravatar className='ui right floated mini circular image' email={appt.client.email}/>
+              <div className='header'>
+                Appointment on {appt.dateRequested.toISOString().slice(0, 10)}
+              </div>
+              <div className='meta'>
+                with <strong>{appt.client.firstName}{appt.client.lastName}</strong>
+              </div>
+              <div className='description'>
+                {appt.info}
+              </div>
+            </div>
+            <div className='extra content'>
+              <div className='ui two buttons'>
+                <div className='ui basic green button' onClick={() => ::this.approveAppt(appt)}>Approve</div>
+                <div className='ui basic red button' onClick={() => ::this.declineAppt(appt)}>Decline</div>
+              </div>
+            </div>
+          </div>)}
         </div>
-      </div>)}
-    </div>
+      }
+    })()
 
     return <div className='ui basic segment'>
       {appointments}
