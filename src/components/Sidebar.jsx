@@ -15,6 +15,7 @@ export default function Sidebar ({mobile, user, onLogout, changeLocation}) {
   let goToFamily = () => changeLocation('family')
   let goToMessages = () => changeLocation('messages')
   let goToSettings = () => changeLocation('settings')
+  let goToOrganizations = () => changeLocation('organizations')
 
   return <div className={sidebar} style={{position, height}}>
     <div className='ui segment'>
@@ -37,6 +38,10 @@ export default function Sidebar ({mobile, user, onLogout, changeLocation}) {
         <button className='ui right labeled basic icon button' onClick={goToFamily}>
           <i className='group icon' style={{background: 'none'}}></i>
           My Family
+        </button>
+        <button className='ui right labeled basic icon button' onClick={goToOrganizations}>
+          <i className='building icon' style={{background: 'none'}}></i>
+          My Organizations
         </button>
         <button className='ui right labeled basic icon button' onClick={goToMessages}>
           <i className='mail icon' style={{background: 'none'}}></i>
