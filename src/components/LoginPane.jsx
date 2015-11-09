@@ -135,6 +135,10 @@ export default class LoginPane extends Component {
       : null
 
     return <div className={loginPane}>
+      <center>
+        <img style={{ height: '100px', width: '100px'}} className="ui medium circular image" src="https://medtechboston.medstro.com/wp-content/uploads/2015/02/shutterstock_133503068-830x553.jpg" />
+        <h1>UHRNinja</h1>
+      </center>
       <div className={`ui piled segment ${this.props.failure ? 'red' : ''}`}>
         <div className='ui large form'>
           <div style={{textAlign: 'center'}}>
