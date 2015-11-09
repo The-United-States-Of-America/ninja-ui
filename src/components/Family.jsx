@@ -36,10 +36,6 @@ export default class Family extends Component {
     }
   }
 
-  async componentWillUpdate () {
-    this.componentDidMount()
-  }
-
   async handleFamilyCreation () {
     let createResponse = await postJson(`${DBSRV}/family/create`, { name: this.state.familyName })
     let { id } = await createResponse.json()
