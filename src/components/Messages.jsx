@@ -23,7 +23,7 @@ export default class Messages extends Component {
       : { userId: this.props.user.id, organizationId: invite.id }
 
     await postJson(`${DBSRV}/${inviteType}`, body)
-    this.props.changeLocation('family')
+    this.props.changeLocation(this.props.user.usertype === 'client' ? 'family' : 'organizations')
   }
 
   async declineInvite (invite) {

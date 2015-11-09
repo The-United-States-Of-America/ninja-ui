@@ -72,7 +72,7 @@ export default class Organizations extends Component {
                   <input
                     type='text'
                     placeholder='Members'
-                    value={this.state.new_members}
+                    value={this.state.newOrganizationMembers}
                     onChange={::this.handleUpdate('newOrganizationMembers')}/>
                   <button className='ui blue button' type='submit' onClick={() => ::this.handleOrganizationInvite(org)}>Submit</button>
                 </div>
