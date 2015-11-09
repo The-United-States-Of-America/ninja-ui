@@ -1,6 +1,5 @@
 .family {
   display: flex;
-  padding: 2rem;
   justify-content: space-around;
   flex-flow: row wrap;
 }

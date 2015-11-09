@@ -1,8 +1,8 @@
 import { SUCCESS_LOGIN, FAILED_LOGIN, DO_LOGOUT } from './actions'
 
 let initialState = () => ({
-  email: null,
-  failure: false
+  user: null,
+  failure: ''
 })
 
 export default function reduce (state = initialState(), action) {
@@ -10,13 +10,13 @@ export default function reduce (state = initialState(), action) {
     case SUCCESS_LOGIN:
       return {
         ...state,
-        email: action.email,
-        failure: false
+        user: action.user,
+        failure: ''
       }
     case FAILED_LOGIN:
       return {
         ...state,
-        failure: true
+        failure: action.message
       }
     case DO_LOGOUT:
       return initialState()

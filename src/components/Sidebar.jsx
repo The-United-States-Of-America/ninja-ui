@@ -7,7 +7,7 @@ import { sidebar, logoutButton } from './Sidebar.css'
  *
  * Contains several buttons on the side for navigation
  */
-export default function Sidebar ({mobile, email, onLogout, changeLocation}) {
+export default function Sidebar ({mobile, user, onLogout, changeLocation}) {
   let position = mobile ? 'absolute' : 'inherit'
   let height = mobile ? 'calc(100vh - 4rem)' : '100vh'
 
@@ -18,7 +18,10 @@ export default function Sidebar ({mobile, email, onLogout, changeLocation}) {
 
   return <div className={sidebar} style={{position, height}}>
     <div className='ui segment'>
-      <Gravatar className='ui small centered circular image' email={email} size={500}/>
+      <Gravatar className='ui small centered circular image' email={user.email} size={500}/>
+      <div style={{textAlign: 'center'}}>
+        <h4>{user.firstName} {user.lastName}</h4>
+      </div>
       <div className={logoutButton}>
         <button className='ui right labeled icon button' onClick={onLogout}>
           <i className='sign out icon'></i>

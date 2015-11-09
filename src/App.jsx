@@ -4,7 +4,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import uiSelector from './ui/selectors'
 import authSelector from './auth/selectors'
 import { toggleSidebar, changeLocation } from './ui/actions'
-import { doLogin, doLogout } from './auth/actions'
+import { doLogin, doLogout, doRegister } from './auth/actions'
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 import Dash from './components/Dash'
@@ -26,8 +26,9 @@ export default class App extends Component {
     mobile: React.PropTypes.bool,
     showSidebar: React.PropTypes.bool,
     isLoggedIn: React.PropTypes.bool,
-    email: React.PropTypes.string,
+    user: React.PropTypes.object,
     failure: React.PropTypes.bool,
+    failureMsg: React.PropTypes.string,
     location: React.PropTypes.string
   }
 
@@ -36,8 +37,9 @@ export default class App extends Component {
             mobile,
             showSidebar,
             isLoggedIn,
-            email,
+            user,
             failure,
+            failureMsg,
             location } = this.props
 
     let nav = !mobile
@@ -51,7 +53,7 @@ export default class App extends Component {
         ? null
         : <Sidebar
             mobile={mobile}
-            email={email}
+            user={user}
             onLogout={doLogout(dispatch)}
             changeLocation={changeLocation(dispatch)} />}
     </ReactCSSTransitionGroup>
@@ -61,7 +63,7 @@ export default class App extends Component {
         case 'settings':
           return <Settings />
         case 'family':
-          return <Family />
+          return <Family userId={user.id} family={user.family}/>
         case 'messages':
           return <Messages />
         default:
@@ -73,7 +75,7 @@ export default class App extends Component {
 
     if (!isLoggedIn) {
       return <div style={{paddingTop: '5rem'}}>
-        <LoginPane onLogin={doLogin(dispatch)} failure={failure} />
+        <LoginPane onLogin={doLogin(dispatch)} onRegister={doRegister(dispatch)} failure={failure} failureMsg={failureMsg}/>
       </div>
     } else {
       return <div className={ninjaContainer}>

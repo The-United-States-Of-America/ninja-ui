@@ -1,7 +1,8 @@
 export default function select (state) {
   return {
-    isLoggedIn: state.auth.email !== null,
-    email: state.auth.email,
-    failure: state.auth.failure
+    isLoggedIn: state.auth.user !== null,
+    user: state.auth.user,
+    failure: !!state.auth.failure,
+    failureMsg: state.auth.failure
   }
 }
