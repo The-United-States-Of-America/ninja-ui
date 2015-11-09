@@ -50,7 +50,6 @@ export default class Family extends Component {
   }
 
   async handleFamilyInvitation () {
-    console.log(this.state.newFamilyMembers);
     let clientResponse = await* this.state.newFamilyMembers.split(',').map(email => fetch(`${DBSRV}/client/get/${email.trim()}`))
     let clients = await* clientResponse.map(c => c.json())
 

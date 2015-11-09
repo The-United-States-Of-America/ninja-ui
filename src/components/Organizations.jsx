@@ -13,6 +13,8 @@ export default class Organizations extends Component {
   state = {
     organizations: [],
 
+    newOrganizationMembers: '',
+
     orgName: '',
     orgState: '',
     orgAddress: '',
@@ -39,6 +41,14 @@ export default class Organizations extends Component {
     this.componentDidMount()
   }
 
+  async handleOrganizationInvite (org) {
+    let clientResponse = await* this.state.newOrganizationMembers.split(',').map(email => fetch(`${DBSRV}/provider/get/${email.trim()}`))
+    let clients = await* clientResponse.map(c => c.json())
+
+    await* clients.map(client => postJson(`${DBSRV}/organization/invite`, { userId: client.id, organizationId: parseInt(org.id) }))
+    this.setState({ newOrganizationMembers: '' })
+  }
+
   async componentDidMount () {
     let URL = `${DBSRV}/${this.props.user.usertype}/get/${this.props.user.email}`
     let response = await fetch(URL)
@@ -52,12 +62,23 @@ export default class Organizations extends Component {
       <h2>My Organizations</h2>
       {this.state.organizations.map((org, idx) => {
         return <div className='item' key={idx}>
-          <i className='large building middle aligned icon'></i>
-          <div className='content'>
-            <a className='header'>{ org.name }</a>
-            <div className='description'>{ org.phone }</div>
+            <i className='large building middle aligned icon'></i>
+            <div className='content'>
+              <a className='header'>{ org.name }</a>
+              <div className='description'>{ org.phone }</div>
+              <div className='field'>
+                <label>Invite New Members: </label>
+                <div className='ui action input'>
+                  <input
+                    type='text'
+                    placeholder='Members'
+                    value={this.state.new_members}
+                    onChange={::this.handleUpdate('newOrganizationMembers')}/>
+                  <button className='ui blue button' type='submit' onClick={() => ::this.handleOrganizationInvite(org)}>Submit</button>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
       })}
     </div>
 
