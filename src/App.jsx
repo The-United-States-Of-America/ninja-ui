@@ -72,7 +72,7 @@ export default class App extends Component {
         case 'family':
           return <Family userId={user.id} family={user.family}/>
         case 'messages':
-          return <Messages user={user} mobile={mobile}/>
+          return <Messages user={user} mobile={mobile} changeLocation={changeLocation(dispatch)}/>
         case 'organizations':
           return <Organizations user={user}/>
         default:
