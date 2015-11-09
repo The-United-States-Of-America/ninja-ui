@@ -20,7 +20,7 @@ export default class Dash extends Component {
     }
   }
 
-  async handleAppointmentCreaiton () {
+  async handleAppointmentCreation () {
     let providerDetails = await fetch(`${DBSRV}/provider/get/${this.state.providerEmail.trim()}`)
     let provider = await providerDetails.json()
 
@@ -35,7 +35,18 @@ export default class Dash extends Component {
     providerEmail: '',
     state: 1,
     info: '',
-    comments: ''
+    comments: '',
+
+    appointments: true
+  }
+
+  async componentDidMount () {
+    if (this.state.appointments) {
+      let URL = (this.props.user.usertype === 'client') ? `${DBSRV}/appt/client/${this.props.user.id}` : `${DBSRV}/appt/provider/${this.props.user.id}`
+      let response = await fetch(URL)
+      let appointments = await response.json()
+      this.setState({ appointments })
+    }
   }
 
   render () {
@@ -46,7 +57,7 @@ export default class Dash extends Component {
         forceSixRows={false}
       />
     </div>
-    
+
     let appointmentForm = <div className='ui basic segment'>
       <h2>Schedule an Appointment</h2>
         <div className='ui form'>
@@ -68,7 +79,7 @@ export default class Dash extends Component {
                 onChange={::this.handleUpdate('info')}/>
             </div>
           </div>
-          <button className='ui fluid blue button' type='submit' onClick={::this.handleAppointmentCreaiton}>
+          <button className='ui fluid blue button' type='submit' onClick={::this.handleAppointmentCreation}>
             Submit
           </button>
         </div>
