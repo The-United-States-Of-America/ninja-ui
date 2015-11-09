@@ -146,14 +146,9 @@ export default class Dash extends Component {
               </div>
             </div>
             <div className='extra content'>
-              {appt.state === 1 && this.props.user.usertype === 'provider'
-                ? <div className='ui two buttons'>
-                  <div className='ui basic green button'>Approve</div>
-                  <div className='ui basic red button'>Decline</div>
-                </div>
-                : appt.state === 3
-                  ? <p>All Set!</p>
-                  : <p>Pending Approval...</p>}
+              {appt.state === 1
+                ? <p>Pending Approval...</p>
+                : <p>All Set!</p>}
             </div>
           </div>)}
         </div>
@@ -173,10 +168,12 @@ export default class Dash extends Component {
               </div>
             </div>
             <div className='extra content'>
-              <div className='ui two buttons'>
-                <div className='ui basic green button' onClick={() => ::this.approveAppt(appt)}>Approve</div>
-                <div className='ui basic red button' onClick={() => ::this.declineAppt(appt)}>Decline</div>
-              </div>
+              {appt.state === 1
+                ? <div className='ui two buttons'>
+                  <div className='ui basic green button' onClick={() => ::this.approveAppt(appt)}>Approve</div>
+                  <div className='ui basic red button' onClick={() => ::this.declineAppt(appt)}>Decline</div>
+                </div>
+                : <p>All Set!</p>}
             </div>
           </div>)}
         </div>

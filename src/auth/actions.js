@@ -73,6 +73,8 @@ export function doRegister (dispatch) {
       dispatch({ type: FAILED_LOGIN, message: 'Error Registering!' })
     } else {
       let user = await response.json()
+      user.usertype = state.usertype
+
       dispatch({
         type: SUCCESS_LOGIN,
         user
