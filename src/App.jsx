@@ -74,7 +74,7 @@ export default class App extends Component {
         case 'messages':
           return <Messages user={user} mobile={mobile}/>
         case 'organizations':
-          return <Organizations userId={user.id}/>
+          return <Organizations user={user}/>
         default:
           return <Dash mobile={mobile} user={user}/>
       }
