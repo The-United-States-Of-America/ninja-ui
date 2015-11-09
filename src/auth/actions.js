@@ -9,6 +9,7 @@ export function doLogin (dispatch) {
       dispatch({
         type: SUCCESS_LOGIN,
         user: {
+          usertype,
           id: '1',
           ssn: '1111111111',
           familyId: '1',
@@ -32,7 +33,10 @@ export function doLogin (dispatch) {
 
       dispatch({
         type: SUCCESS_LOGIN,
-        user: userdata
+        user: {
+          ...userdata,
+          usertype
+        }
       })
     } catch (e) {
       dispatch({ type: FAILED_LOGIN, message: 'Login Failed!' })

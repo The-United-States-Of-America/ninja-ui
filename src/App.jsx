@@ -42,6 +42,12 @@ export default class App extends Component {
             failureMsg,
             location } = this.props
 
+    if (!isLoggedIn) {
+      return <div style={{paddingTop: '5rem'}}>
+        <LoginPane onLogin={doLogin(dispatch)} onRegister={doRegister(dispatch)} failure={failure} failureMsg={failureMsg}/>
+      </div>
+    }
+
     let nav = !mobile
       ? null
       : <Navbar
@@ -65,7 +71,7 @@ export default class App extends Component {
         case 'family':
           return <Family userId={user.id} family={user.family}/>
         case 'messages':
-          return <Messages />
+          return <Messages userId={user.id} usertype={user.usertype}/>
         default:
           return <Dash mobile={mobile}/>
       }
@@ -73,20 +79,15 @@ export default class App extends Component {
 
     let height = mobile ? 'calc(100vh - 4rem)' : '100vh'
 
-    if (!isLoggedIn) {
-      return <div style={{paddingTop: '5rem'}}>
-        <LoginPane onLogin={doLogin(dispatch)} onRegister={doRegister(dispatch)} failure={failure} failureMsg={failureMsg}/>
-      </div>
-    } else {
-      return <div className={ninjaContainer}>
-        {nav}
-        <div className={ninja}>
-          {sidebar}
-          <div className={ninjaView} style={{height}}>
-            {view}
-          </div>
+
+    return <div className={ninjaContainer}>
+      {nav}
+      <div className={ninja}>
+        {sidebar}
+        <div className={ninjaView} style={{height}}>
+          {view}
         </div>
       </div>
-    }
+    </div>
   }
 }

@@ -51,16 +51,15 @@ export default class Family extends Component {
 
   render () {
     if (this.state.family) {
-      return <div className={family}>
+      return <div className={`${family} ui basic segment`}>
         {this.state.family.map(fam => <div key={fam.id} className={member}>
           <Gravatar className='ui small centered circular image' email={fam.email} size={500}/>
           <h3>{fam.firstName} {fam.lastName}</h3>
         </div>)}
       </div>
     } else if (this.props.family) {
-      return <div className='ui segment'>
-        <p></p>
-        <div className='ui active loader'></div>
+      return <div className='ui basic segment'>
+        <div className='ui active loader' style={{marginTop: '3rem'}}></div>
       </div>
     } else {
       return <div className='ui basic segment'>
