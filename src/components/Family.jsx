@@ -36,7 +36,7 @@ export default class Family extends Component {
     }
   }
 
-  async ComponentWillUpdate () {
+  async componentWillUpdate () {
     this.componentDidMount()
   }
 

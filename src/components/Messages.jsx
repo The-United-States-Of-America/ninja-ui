@@ -87,8 +87,8 @@ export default class Messages extends Component {
 
   mobileView () {
     return <div className='ui celled list'>
-      {messages.map((message, idx) => (
-        <div className='item' key={idx} onClick={viewMessage(idx)}>
+      {this.state.messages.map((message, idx) => (
+        <div className='item' key={idx}>
           {::this.messageView(message)}
         </div>
       ))}
