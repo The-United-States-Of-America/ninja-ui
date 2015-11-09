@@ -11,6 +11,7 @@ import Dash from './components/Dash'
 import LoginPane from './components/LoginPane'
 import Settings from './components/Settings'
 import Family from './components/Family'
+import Organizations from './components/Organizations'
 import Messages from './components/Messages'
 import { ninja, ninjaContainer, ninjaView } from './App.css'
 
@@ -66,6 +67,8 @@ export default class App extends Component {
           return <Family userId={user.id} family={user.family}/>
         case 'messages':
           return <Messages />
+        case 'organizations':
+          return <Organizations userId={user.id}/>
         default:
           return <Dash mobile={mobile}/>
       }
