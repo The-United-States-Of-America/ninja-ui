@@ -79,7 +79,7 @@ export default class Family extends Component {
                   <input
                     type='text'
                     placeholder='Members'
-                    value={this.state.new_members}
+                    value={this.state.newFamilyMembers}
                     onChange={::this.handleUpdate('newFamilyMembers')}/>
                 </div>
               </div>
