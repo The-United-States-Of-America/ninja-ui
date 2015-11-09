@@ -17,22 +17,22 @@ export default class Messages extends Component {
   }
 
   async acceptInvite (invite) {
-    let inviteType = this.props.user.usertype === 'client' ? 'accept_fam_invite' : 'accept_org_invite'
+    let inviteType = this.props.user.usertype === 'client' ? 'client/accept_fam_invite' : 'provider/accept_org_invite'
     let body = this.props.user.usertype === 'client'
       ? { clientId: this.props.user.id, familyId: invite.id }
       : { userId: this.props.user.id, organizationId: invite.id }
 
-    await postJson(`${DBSRV}/client/${inviteType}`, body)
+    await postJson(`${DBSRV}/${inviteType}`, body)
     this.props.changeLocation('family')
   }
 
   async declineInvite (invite) {
-    let inviteType = this.props.user.usertype === 'client' ? 'reject_fam_invite' : 'reject_org_invite'
+    let inviteType = this.props.user.usertype === 'client' ? 'client/reject_fam_invite' : 'provider/reject_org_invite'
     let body = this.props.user.usertype === 'client'
       ? { clientId: this.props.user.id, familyId: invite.id }
       : { userId: this.props.user.id, organizationId: invite.id }
 
-    await postJson(`${DBSRV}/client/${inviteType}`, body)
+    await postJson(`${DBSRV}/${inviteType}`, body)
     this.componentDidMount()
   }
 
