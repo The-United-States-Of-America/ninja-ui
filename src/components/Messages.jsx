@@ -8,12 +8,12 @@ import { postJson } from '../utils'
 export default class Messages extends Component {
   static propTypes = {
     user: React.PropTypes.object,
-    mobile: React.PropTypes.bool
+    mobile: React.PropTypes.bool,
+    changeLocation: React.PropTypes.func
   }
 
   state = {
-    messages: null,
-    viewing: null
+    messages: null
   }
 
   async acceptInvite (invite) {
@@ -23,6 +23,7 @@ export default class Messages extends Component {
       : { userId: this.props.user.id, organizationId: invite.id }
 
     await postJson(`${DBSRV}/client/${inviteType}`, body)
+    this.props.changeLocation('family')
   }
 
   async declineInvite (invite) {
@@ -32,6 +33,7 @@ export default class Messages extends Component {
       : { userId: this.props.user.id, organizationId: invite.id }
 
     await postJson(`${DBSRV}/client/${inviteType}`, body)
+    this.componentDidMount()
   }
 
   async componentDidMount () {
@@ -61,19 +63,6 @@ export default class Messages extends Component {
     }
   }
 
-  messagesList (messages, viewMessage) {
-    return <div className='ui celled list'>
-      {messages.map((message, idx) => (
-        <div className='item' key={idx} onClick={viewMessage(idx)}>
-          <div>
-            <h4>Congrats! You've been invited...</h4>
-            <p>This means you'll be able to...</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  }
-
   messageView (message) {
     if (message.type === 'invite') {
       return <div>
@@ -97,21 +86,13 @@ export default class Messages extends Component {
   }
 
   mobileView () {
-    let viewMessage = (viewing) => () => this.setState({ viewing })
-
-    if (this.state.viewing === null) {
-      return <div>
-        {this.messagesList(this.state.messages, viewMessage)}
-      </div>
-    } else {
-      return <div className='ui basic segment'>
-        <div>
-          <a href='#' onClick={viewMessage(null)}>&#10094; Back</a>
+    return <div className='ui celled list'>
+      {messages.map((message, idx) => (
+        <div className='item' key={idx} onClick={viewMessage(idx)}>
+          {::this.messageView(message)}
         </div>
-        <div className='ui divider'></div>
-        {::this.messageView(this.state.messages[this.state.viewing])}
-      </div>
-    }
+      ))}
+    </div>
   }
 
   render () {
