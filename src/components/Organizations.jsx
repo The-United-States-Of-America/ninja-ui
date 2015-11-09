@@ -8,7 +8,7 @@ import { postJson } from '../utils'
  */
 export default class Organizations extends Component {
   static propTypes = {
-    userId: React.PropTypes.string
+    user: React.PropTypes.object
   }
 
   state = {
@@ -34,12 +34,38 @@ export default class Organizations extends Component {
       { name: this.state.orgName, state: this.state.orgState, address: this.state.orgAddress, zip: this.state.orgZip, phone: this.state.orgPhone })
     let { id } = await createResponse.json()
 
-    await postJson(`${DBSRV}/organization/invite`, { userId: this.props.userId, organizationId: id })
-    await postJson(`${DBSRV}/client/accept_org_invite`, { userId: this.props.userId, organizationId: id })
+    let invite = await postJson(`${DBSRV}/organization/invite`, { userId: this.props.user.id, organizationId: id })
+    let accept = await postJson(`${DBSRV}/${this.props.user.usertype}/accept_org_invite`, { userId: this.props.user.id, organizationId: id })
+
+    this.componentDidMount()
+  }
+
+  async componentDidMount () {
+    let URL = `${DBSRV}/${this.props.user.usertype}/get/${this.props.user.email}`
+    let response = await fetch(URL)
+    let { organizations } = await response.json()
+
+    this.setState({ organizations })
   }
 
   render () {
-    return <div className='ui basic segment'>
+    let organizations = <div className='ui basic segment relaxed divided list'> <h2>My Organizations</h2> {this.state.organizations.map(org => {
+      return (
+        <div className='item'>
+          <i className='large building middle aligned icon'></i>
+          <div className='content'>
+            <a className='header'>{ org.name }</a>
+            <div className='description'>{ org.phone }</div>
+          </div>
+        </div>
+      )
+    })} </div>
+
+  console.log(organizations)
+
+  return <div>
+      {organizations}
+      <div className='ui basic segment'>
               <h2>Create a New Organization!</h2>
               <div className='ui form'>
                 <div className='field'>
@@ -66,7 +92,7 @@ export default class Organizations extends Component {
 
                 <div className='field'>
                   <label>State</label>
-                  <select value={this.state.orgState} onChange={::this.handleUpdate('orgState')} class='ui fluid dropdown'>
+                  <select value={this.state.orgState} onChange={::this.handleUpdate('orgState')} className='ui fluid dropdown'>
                     <option value=''>State</option>
                     <option value='AL'>Alabama</option>
                     <option value='AK'>Alaska</option>
@@ -149,5 +175,6 @@ export default class Organizations extends Component {
                 </button>
               </div>
           </div>
+  </div>
   }
 }
