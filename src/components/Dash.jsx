@@ -112,6 +112,18 @@ export default class Dash extends Component {
     this.componentDidMount()
   }
 
+  async uploadFile (appt) {
+    let file = document.fileupload.querySelector('[type="file"]').files[0]
+    let data = new FormData()
+    data.append(appt.id, file)
+    document.fileupload.reset()
+
+    await fetch(`${DBSRV}/file/upload`, {
+      method: 'post',
+      body: data
+    })
+  }
+
   render () {
     let appointmentForm = this.state.showMakeAppt
       ? <div>
@@ -165,10 +177,13 @@ export default class Dash extends Component {
                 ? <p>Pending Approval...</p>
               : <div>
                 <span className='right floated'>
-                  <div className='ui two buttons'>
-                    <div className='ui mini basic green button' onClick={() => ::this.cancelAppt(appt)}>Add Document</div>
+                  <form name='fileupload' className='ui two mini buttons' action={`${DBSRV}/file/upload`} method='post'>
+                    <label className='ui mini basic green button'>
+                      <span>Add Document</span>
+                      <input type="file" style={{display:'none'}} onChange={() => this.uploadFile(appt)}/>
+                    </label>
                     <div className='ui mini basic red button' onClick={() => ::this.cancelAppt(appt)}>Delete</div>
-                  </div>
+                  </form>
                 </span>
                 <p>All Set!</p>
               </div>}
