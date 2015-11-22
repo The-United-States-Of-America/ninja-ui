@@ -82,7 +82,9 @@ gulp.task('ui', ['prepare'], function () {
 
   let app = express()
   let compiler = webpack(devConf, function (err, stats) {
-    if (err) throw new gutil.PluginError('webpack', err)
+    if (err) {
+      throw new gutil.PluginError('webpack', err)
+    }
 
     gutil.log(`[${gutil.colors.grey('webpack')}]`, stats.toString({
       chunks: false,
