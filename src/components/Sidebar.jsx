@@ -14,7 +14,6 @@ export default function Sidebar ({mobile, user, onLogout, changeLocation}) {
   let goToAppointments = () => changeLocation('appointments')
   let goToFamily = () => changeLocation('family')
   let goToMessages = () => changeLocation('messages')
-  let goToSettings = () => changeLocation('settings')
   let goToOrganizations = () => changeLocation('organizations')
 
   return <div className={sidebar} style={{position, height}}>
@@ -53,12 +52,6 @@ export default function Sidebar ({mobile, user, onLogout, changeLocation}) {
         </button>
       </div>
       <div className='ui divider'></div>
-      {/*<div className='ui vertical fluid buttons'>
-        <button className='ui right labeled basic icon button' onClick={goToSettings}>
-          <i className='settings icon' style={{background: 'none'}}></i>
-          Settings
-        </button>
-      </div>*/}
     </div>
   </div>
 }

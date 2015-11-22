@@ -70,8 +70,8 @@ export default class Dash extends Component {
   async cancelAppt (appt) {
     await postJson(`${DBSRV}/appt/update`, {
       query: {
-        clientId: parseInt(appt.clientId),
-        providerId: parseInt(appt.providerId),
+        clientId: parseInt(appt.clientId, 10),
+        providerId: parseInt(appt.providerId, 10),
         dateRequested: appt.dateRequested
       },
       update: {
@@ -85,8 +85,8 @@ export default class Dash extends Component {
   async approveAppt (appt) {
     await postJson(`${DBSRV}/appt/update`, {
       query: {
-        clientId: parseInt(appt.clientId),
-        providerId: parseInt(appt.providerId),
+        clientId: parseInt(appt.clientId, 10),
+        providerId: parseInt(appt.providerId, 10),
         dateRequested: appt.dateRequested
       },
       update: {
@@ -100,8 +100,8 @@ export default class Dash extends Component {
   async declineAppt (appt) {
     await postJson(`${DBSRV}/appt/update`, {
       query: {
-        clientId: parseInt(appt.clientId),
-        providerId: parseInt(appt.providerId),
+        clientId: parseInt(appt.clientId, 10),
+        providerId: parseInt(appt.providerId, 10),
         dateRequested: appt.dateRequested.toString()
       },
       update: {
@@ -175,7 +175,7 @@ export default class Dash extends Component {
             </div>
           </div>)}
         </div>
-      } else  {
+      } else {
         return <div className='ui cards'>
           {this.state.appointments.map((appt, idx) => <div className='card' key={idx}>
             <div className='content'>

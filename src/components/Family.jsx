@@ -85,7 +85,6 @@ export default class Family extends Component {
             </div>
         </div>
       </div>
-
     } else if (this.props.family) {
       return <div className='ui basic segment'>
         <div className='ui active loader' style={{marginTop: '3rem'}}></div>

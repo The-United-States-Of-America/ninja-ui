@@ -45,7 +45,7 @@ export default class Organizations extends Component {
     let clientResponse = await* this.state.newOrganizationMembers.split(',').map(email => fetch(`${DBSRV}/provider/get/${email.trim()}`))
     let clients = await* clientResponse.map(c => c.json())
 
-    await* clients.map(client => postJson(`${DBSRV}/organization/invite`, { userId: client.id, organizationId: parseInt(org.id) }))
+    await* clients.map(client => postJson(`${DBSRV}/organization/invite`, { userId: client.id, organizationId: parseInt(org.id, 10) }))
     this.setState({ newOrganizationMembers: '' })
   }
 

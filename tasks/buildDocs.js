@@ -1,6 +1,6 @@
 var fs = require('fs')
 
-var buildComponent = function(componentName, component) {
+var buildComponent = function (componentName, component) {
   var buff = `# ${componentName}\n_${component.description}_\n### Props\n`
 
   for (var propName in component.props) {
