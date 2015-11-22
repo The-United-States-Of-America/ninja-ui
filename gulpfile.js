@@ -8,6 +8,8 @@ let del = require('del')
 let express = require('express')
 let babel = require('gulp-babel')
 
+gulp.task('doc', require('./tasks/buildDocs.js'))
+
 gulp.task('prepare', function (cb) {
   del('target').then(function () {
     gulp.src(path.join('src', 'index.html'))

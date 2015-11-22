@@ -1,0 +1,152 @@
+{
+  "src/components/Dash.jsx": {
+    "description": "Dashboard view that hold overview of appointments with calendar",
+    "props": {
+      "user": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": ""
+      }
+    }
+  },
+  "src/components/Family.jsx": {
+    "description": "Basic view to display all members of a family",
+    "props": {
+      "family": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": ""
+      },
+      "userId": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    }
+  },
+  "src/components/LoginPane.jsx": {
+    "description": "Shows a view for logging into the application",
+    "props": {
+      "onLogin": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Action to perform on login"
+      },
+      "onRegister": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Action to perform on register"
+      },
+      "failure": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "If the previous login failed"
+      },
+      "failureMsg": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The message returned with a failure"
+      }
+    }
+  },
+  "src/components/Messages.jsx": {
+    "description": "Pane to list all messages for a user",
+    "props": {
+      "user": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": ""
+      },
+      "mobile": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "changeLocation": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      }
+    }
+  },
+  "src/components/Navbar.jsx": {
+    "description": "",
+    "props": {
+      "onToggleSidebar": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Function to call when user intends to toggle the sidebar"
+      }
+    }
+  },
+  "src/components/Organizations.jsx": {
+    "description": "Basic view to display all members of a family",
+    "props": {
+      "user": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": ""
+      }
+    }
+  },
+  "src/components/Settings.jsx": {
+    "description": ""
+  },
+  "src/components/Sidebar.jsx": {
+    "description": "",
+    "props": {
+      "mobile": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "If the sidebar should be rendered as mobile or not"
+      },
+      "email": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Email of the current user"
+      },
+      "onLogout": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Action to perform when the user wants to log out"
+      },
+      "changeLocation": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "A function that takes in a string location and adjusts the app accordingly"
+      }
+    }
+  }
+}

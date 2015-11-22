@@ -1,4 +1,4 @@
 #!/bin/sh
 
-mkdir docs
+mkdir -p docs
 ./node_modules/.bin/react-docgen -x jsx -i __tests__ -o docs/doc.json --pretty src/components/
