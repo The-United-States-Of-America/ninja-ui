@@ -31,22 +31,22 @@ export default function Sidebar ({mobile, user, onLogout, changeLocation}) {
       </div>
       <div className='ui divider'></div>
       <div className='ui vertical fluid buttons'>
-        <button className='ui right labeled basic icon button' onClick={goToAppointments}>
-          <i className='calendar icon' style={{background: 'none'}}></i>
-          Appointments
-        </button>
+        {user.usertype !== 'admin'
+          ? <button className='ui right labeled basic icon button' onClick={goToAppointments}>
+            <i className='calendar icon' style={{background: 'none'}}></i>
+            Appointments
+          </button>
+          : null}
         {user.usertype === 'client'
           ? <button className='ui right labeled basic icon button' onClick={goToFamily}>
             <i className='group icon' style={{background: 'none'}}></i>
             My Family
           </button>
           : null}
-        {user.usertype === 'provider' || user.usertype === 'admin'
-          ? <button className='ui right labeled basic icon button' onClick={goToOrganizations}>
-            <i className='building icon' style={{background: 'none'}}></i>
-            My Organizations
-          </button>
-          : null}
+        <button className='ui right labeled basic icon button' onClick={goToOrganizations}>
+          <i className='building icon' style={{background: 'none'}}></i>
+          My Organizations
+        </button>
         <button className='ui right labeled basic icon button' onClick={goToMessages}>
           <i className='mail icon' style={{background: 'none'}}></i>
           Messages

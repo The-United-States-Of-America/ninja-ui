@@ -76,7 +76,7 @@ export default class App extends Component {
         case 'organizations':
           return <Organizations user={user}/>
         default:
-          return <Dash mobile={mobile} user={user}/>
+          return user.usertype !== 'admin' ? <Dash mobile={mobile} user={user}/> : <Organizations user={user}/>
       }
     })()
 

@@ -53,7 +53,7 @@ export default class Dash extends Component {
       let appointments = await response.json()
 
       this.setState({
-        appointments: appointments.map(appt => ({
+        appointments: appointments.filter(appt => appt.state !== 0).map(appt => ({
           ...appt,
           dateRequested: new Date(appt.dateRequested)
         }))
@@ -65,6 +65,21 @@ export default class Dash extends Component {
     this.setState({
       showMakeAppt: true
     })
+  }
+
+  async cancelAppt (appt) {
+    await postJson(`${DBSRV}/appt/update`, {
+      query: {
+        clientId: parseInt(appt.clientId),
+        providerId: parseInt(appt.providerId),
+        dateRequested: appt.dateRequested
+      },
+      update: {
+        state: 0
+      }
+    })
+
+    this.componentDidMount()
   }
 
   async approveAppt (appt) {
@@ -148,7 +163,15 @@ export default class Dash extends Component {
             <div className='extra content'>
               {appt.state === 1
                 ? <p>Pending Approval...</p>
-                : <p>All Set!</p>}
+              : <div>
+                <span className='right floated'>
+                  <div className='ui two buttons'>
+                    <div className='ui mini basic green button' onClick={() => ::this.cancelAppt(appt)}>Add Document</div>
+                    <div className='ui mini basic red button' onClick={() => ::this.cancelAppt(appt)}>Delete</div>
+                  </div>
+                </span>
+                <p>All Set!</p>
+              </div>}
             </div>
           </div>)}
         </div>
@@ -173,7 +196,12 @@ export default class Dash extends Component {
                   <div className='ui basic green button' onClick={() => ::this.approveAppt(appt)}>Approve</div>
                   <div className='ui basic red button' onClick={() => ::this.declineAppt(appt)}>Decline</div>
                 </div>
-                : <p>All Set!</p>}
+                : <div>
+                  <span className='right floated'>
+                    <div className='ui mini basic red button' onClick={() => ::this.cancelAppt(appt)}>Delete</div>
+                  </span>
+                  <p>All Set!</p>
+                </div>}
             </div>
           </div>)}
         </div>
