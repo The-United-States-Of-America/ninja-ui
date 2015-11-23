@@ -79,7 +79,7 @@ export default class Organizations extends Component {
             <div className='content'>
               <a className='header'>{ org.name }</a>
               <div className='description'>{ org.phone }</div>
-              {this.props.user.usertype === 'provider'
+              {this.props.user.usertype !== 'client'
                 ? <div className='field'>
                     <label>Invite New Members: </label>
                     <div className='ui action input'>

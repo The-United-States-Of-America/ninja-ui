@@ -176,7 +176,7 @@ export default class Dash extends Component {
               <div className='description'>
                 {appt.info}
                 <h3 className='ui header'>Files</h3>
-                <div className='ui bulleted list'>
+                <div className='ui list'>
                   {appt.files.map(file =>
                     <div key={file} className='item'>
                        <a href={`${DBSRV}/file/get/${appt.id}/${file}`}>
@@ -218,6 +218,16 @@ export default class Dash extends Component {
               </div>
               <div className='description'>
                 {appt.info}
+                <h3 className='ui header'>Files</h3>
+                <div className='ui list'>
+                  {appt.files.map(file =>
+                    <div key={file} className='item'>
+                       <a href={`${DBSRV}/file/get/${appt.id}/${file}`}>
+                         {file}
+                       </a>
+                     </div>
+                  )}
+                </div>
               </div>
             </div>
             <div className='extra content'>
@@ -227,9 +237,15 @@ export default class Dash extends Component {
                   <div className='ui basic red button' onClick={() => ::this.declineAppt(appt)}>Decline</div>
                 </div>
                 : <div>
-                  <span className='right floated'>
-                    <div className='ui mini basic red button' onClick={() => ::this.cancelAppt(appt)}>Delete</div>
-                  </span>
+                    <span className='right floated'>
+                      <form name='fileupload' className='ui two mini buttons' action={`${DBSRV}/file/upload`} method='post'>
+                        <label className='ui mini basic green button'>
+                          <span>Add Document</span>
+                          <input type="file" style={{display:'none'}} onChange={() => this.uploadFile(appt)}/>
+                        </label>
+                        <div className='ui mini basic red button' onClick={() => ::this.cancelAppt(appt)}>Delete</div>
+                      </form>
+                    </span>
                   <p>All Set!</p>
                 </div>}
             </div>
