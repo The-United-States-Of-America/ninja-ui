@@ -52,6 +52,14 @@ export default class Dash extends Component {
       let response = await fetch(URL)
       let appointments = await response.json()
 
+      let fileListResponse = await* appointments.map(a => fetch(`${DBSRV}/file/list/${a.id}`))
+      let fileList = await* fileListResponse.map(f => f.json())
+
+      appointments = appointments.map((appt, idx) => ({
+        ...appt,
+        files: fileList[idx]
+      }))
+
       this.setState({
         appointments: appointments.filter(appt => appt.state !== 0).map(appt => ({
           ...appt,
@@ -70,9 +78,7 @@ export default class Dash extends Component {
   async cancelAppt (appt) {
     await postJson(`${DBSRV}/appt/update`, {
       query: {
-        clientId: parseInt(appt.clientId, 10),
-        providerId: parseInt(appt.providerId, 10),
-        dateRequested: appt.dateRequested
+        id: appt.id.toString()
       },
       update: {
         state: 0
@@ -85,9 +91,7 @@ export default class Dash extends Component {
   async approveAppt (appt) {
     await postJson(`${DBSRV}/appt/update`, {
       query: {
-        clientId: parseInt(appt.clientId, 10),
-        providerId: parseInt(appt.providerId, 10),
-        dateRequested: appt.dateRequested
+        id: appt.id.toString()
       },
       update: {
         state: 3
@@ -100,9 +104,7 @@ export default class Dash extends Component {
   async declineAppt (appt) {
     await postJson(`${DBSRV}/appt/update`, {
       query: {
-        clientId: parseInt(appt.clientId, 10),
-        providerId: parseInt(appt.providerId, 10),
-        dateRequested: appt.dateRequested.toString()
+        id: appt.id.toString()
       },
       update: {
         state: 0
@@ -113,15 +115,18 @@ export default class Dash extends Component {
   }
 
   async uploadFile (appt) {
+    console.log(`Starting upload on ${appt.id}`)
     let file = document.fileupload.querySelector('[type="file"]').files[0]
     let data = new FormData()
-    data.append(appt.id, file)
+    data.append('doc', file)
     document.fileupload.reset()
 
-    await fetch(`${DBSRV}/file/upload`, {
+    await fetch(`${DBSRV}/file/upload/${appt.id}`, {
       method: 'post',
       body: data
     })
+
+    console.log(`Finished upload on ${appt.id}`)
   }
 
   render () {
@@ -170,6 +175,16 @@ export default class Dash extends Component {
               </div>
               <div className='description'>
                 {appt.info}
+                <h3 className='ui header'>Files</h3>
+                <div className='ui bulleted list'>
+                  {appt.files.map(file =>
+                    <div key={file} className='item'>
+                       <a href={`${DBSRV}/file/get/${appt.id}/${file}`}>
+                         {file}
+                       </a>
+                     </div>
+                  )}
+                </div>
               </div>
             </div>
             <div className='extra content'>
