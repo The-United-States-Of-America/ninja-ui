@@ -49,6 +49,7 @@ export function doLogin (dispatch) {
         }
       })
     } catch (e) {
+      console.log(e)
       dispatch({ type: FAILED_LOGIN, message: 'Login Failed!' })
     }
   }
