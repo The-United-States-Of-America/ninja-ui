@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import toastr from 'toastr'
 import { DBSRV } from '../urls'
 import { postJson } from '../utils'
 
@@ -18,6 +19,7 @@ export default class Messages extends Component {
   }
 
   async acceptInvite (invite) {
+    toastr.success(`Accepted invite to ${this.props.user.usertype === 'client' ? 'family' : 'organization'}`)
     let inviteType = this.props.user.usertype === 'client' ? 'client/accept_fam_invite' : 'provider/accept_org_invite'
     let body = this.props.user.usertype === 'client'
       ? { clientId: this.props.user.id, familyId: invite.id }

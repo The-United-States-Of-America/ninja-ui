@@ -9,6 +9,7 @@ import 'babel-core/polyfill'
 import 'whatwg-fetch'
 import 'semantic-ui-css/semantic'
 import 'semantic-ui-css/semantic.css'
+import 'toastr/build/toastr.css'
 
 var devTools = null
 var finalCreateStore = createStore

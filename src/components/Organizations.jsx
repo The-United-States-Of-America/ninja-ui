@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import toastr from 'toastr'
 import { DBSRV } from '../urls'
 import { postJson } from '../utils'
 
@@ -42,6 +43,7 @@ export default class Organizations extends Component {
   }
 
   async handleOrganizationInvite (org) {
+    toastr.success(`Invited ${this.state.newOrganizationMembers}!`)
     let clientResponse = await* this.state.newOrganizationMembers.split(',').map(email => fetch(`${DBSRV}/provider/get/${email.trim()}`))
     let clients = await* clientResponse.map(c => c.json())
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Gravatar from 'react-gravatar'
+import toastr from 'toastr'
 import { DBSRV } from '../urls'
 import { postJson } from '../utils'
 import { family, member } from './Family.css'
@@ -64,6 +65,7 @@ export default class Family extends Component {
   }
 
   async handleFamilyInvitation () {
+    toastr.success(`Invited ${this.state.newFamilyMembers}!`)
     let clientResponse = await* this.state.newFamilyMembers.split(',').map(email => fetch(`${DBSRV}/client/get/${email.trim()}`))
     let clients = await* clientResponse.map(c => c.json())
 

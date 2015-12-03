@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Gravatar from 'react-gravatar'
+import toastr from 'toastr'
 import { DBSRV } from '../urls'
 import { postJson } from '../utils'
 import './Dash.css'
@@ -21,6 +22,7 @@ export default class Dash extends Component {
   }
 
   async handleAppointmentCreation () {
+    toastr.success('Created appointment!')
     let providerDetails = await fetch(`${DBSRV}/provider/get/${this.state.providerEmail.trim()}`)
     let provider = await providerDetails.json()
 
