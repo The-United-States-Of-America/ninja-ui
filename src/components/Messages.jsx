@@ -9,7 +9,8 @@ export default class Messages extends Component {
   static propTypes = {
     user: React.PropTypes.object,
     mobile: React.PropTypes.bool,
-    changeLocation: React.PropTypes.func
+    changeLocation: React.PropTypes.func,
+    editUser: React.PropTypes.func
   }
 
   state = {
@@ -23,6 +24,13 @@ export default class Messages extends Component {
       : { userId: this.props.user.id, organizationId: invite.id }
 
     await postJson(`${DBSRV}/${inviteType}`, body)
+
+    if (this.props.user.usertype === 'client') {
+      this.props.editUser({ familyId: invite.id })
+    } else {
+      this.props.editUser({ organizationId: invite.id })
+    }
+
     this.props.changeLocation(this.props.user.usertype === 'client' ? 'family' : 'organizations')
   }
 

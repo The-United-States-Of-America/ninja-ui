@@ -4,7 +4,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import uiSelector from './ui/selectors'
 import authSelector from './auth/selectors'
 import { toggleSidebar, changeLocation } from './ui/actions'
-import { doLogin, doLogout, doRegister } from './auth/actions'
+import { doLogin, doLogout, doRegister, editUser } from './auth/actions'
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 import Dash from './components/Dash'
@@ -72,7 +72,7 @@ export default class App extends Component {
         case 'family':
           return <Family userId={user.id} family={user.family}/>
         case 'messages':
-          return <Messages user={user} mobile={mobile} changeLocation={changeLocation(dispatch)}/>
+          return <Messages user={user} mobile={mobile} changeLocation={changeLocation(dispatch)} editUser={editUser(dispatch)}/>
         case 'organizations':
           return <Organizations user={user}/>
         default:

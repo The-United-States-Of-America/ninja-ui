@@ -58,14 +58,12 @@ export default class Dash extends Component {
       appointments = appointments.map((appt, idx) => ({
         ...appt,
         files: fileList[idx]
+      })).filter(appt => appt.state !== 0).map(appt => ({
+        ...appt,
+        dateRequested: new Date(appt.dateRequested)
       }))
 
-      this.setState({
-        appointments: appointments.filter(appt => appt.state !== 0).map(appt => ({
-          ...appt,
-          dateRequested: new Date(appt.dateRequested)
-        }))
-      })
+      this.setState({ appointments })
     }
   }
 
@@ -195,7 +193,7 @@ export default class Dash extends Component {
                   <form name='fileupload' className='ui two mini buttons' action={`${DBSRV}/file/upload`} method='post'>
                     <label className='ui mini basic green button'>
                       <span>Add Document</span>
-                      <input type="file" style={{display:'none'}} onChange={() => this.uploadFile(appt)}/>
+                      <input type='file' style={{ display: 'none' }} onChange={() => this.uploadFile(appt)}/>
                     </label>
                     <div className='ui mini basic red button' onClick={() => ::this.cancelAppt(appt)}>Delete</div>
                   </form>
@@ -241,7 +239,7 @@ export default class Dash extends Component {
                       <form name='fileupload' className='ui two mini buttons' action={`${DBSRV}/file/upload`} method='post'>
                         <label className='ui mini basic green button'>
                           <span>Add Document</span>
-                          <input type="file" style={{display:'none'}} onChange={() => this.uploadFile(appt)}/>
+                          <input type='file' style={{ display: 'none' }} onChange={() => this.uploadFile(appt)}/>
                         </label>
                         <div className='ui mini basic red button' onClick={() => ::this.cancelAppt(appt)}>Delete</div>
                       </form>
@@ -255,7 +253,7 @@ export default class Dash extends Component {
     })()
 
     return <div className='ui basic segment'>
-      {appointments}
+      {this.state.appointments.length > 0 ? appointments : <h2>No Appointments Scheduled!</h2>}
       <div style={{marginTop: '1rem'}}>
         {appointmentForm}
       </div>

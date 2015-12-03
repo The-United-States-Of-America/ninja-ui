@@ -31,8 +31,22 @@ export default class Family extends Component {
     if (this.props.family) {
       let response = await fetch(`${DBSRV}/family/getMembers/${this.props.family.id}`)
       let family = await response.json()
+      let allFamApptRes = await* family.map(member => fetch(`${DBSRV}/appt/client/${member.id}`))
+      let allFamAppt = await* allFamApptRes.map(a => a.json())
+      let appointments = allFamAppt.reduce((prev, app) => prev.concat(app))
 
-      this.setState({ family })
+      let fileListResponse = await* appointments.map(a => fetch(`${DBSRV}/file/list/${a.id}`))
+      let fileList = await* fileListResponse.map(f => f.json())
+
+      appointments = appointments.map((appt, idx) => ({
+        ...appt,
+        files: fileList[idx]
+      })).filter(appt => appt.state !== 0).map(appt => ({
+        ...appt,
+        dateRequested: new Date(appt.dateRequested)
+      }))
+
+      this.setState({ family, appointments })
     }
   }
 
@@ -60,11 +74,41 @@ export default class Family extends Component {
   render () {
     if (this.state.family) {
       return <div>
+        <h2>Members</h2>
         <div className={`${family} ui basic segment`}>
           {this.state.family.map(fam => <div key={fam.id} className={member}>
             <Gravatar className='ui small centered circular image' email={fam.email} size={500}/>
             <h3>{fam.firstName} {fam.lastName}</h3>
           </div>)}
+        </div>
+        <div className='ui basic segment'>
+          <h2>Appointments</h2>
+          <div className='ui cards'>
+            {this.state.appointments.map((appt, idx) => <div className='card' key={idx}>
+              <div className='content'>
+                <Gravatar className='ui right floated mini circular image' email={appt.provider.email}/>
+                <div className='header'>
+                  Appointment on {appt.dateRequested.toISOString().slice(0, 10)}
+                </div>
+                <div className='meta'>
+                  with <strong>{appt.provider.prefix}{appt.provider.firstName}{appt.provider.lastName}</strong>
+                </div>
+                <div className='description'>
+                  {appt.info}
+                  <h3 className='ui header'>Files</h3>
+                  <div className='ui list'>
+                    {appt.files.map(file =>
+                      <div key={file} className='item'>
+                         <a href={`${DBSRV}/file/get/${appt.id}/${file}`}>
+                           {file}
+                         </a>
+                       </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>)}
+          </div>
         </div>
         <div className='ui basic segment'>
           <h2>Invite more members to: {this.props.family.name}</h2>

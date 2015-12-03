@@ -55,7 +55,8 @@
     "parser": "babel-eslint",
     "globals": [
       "DEBUG",
-      "fetch"
+      "fetch",
+      "FormData"
     ],
     "ignore": [
       "**/__tests__/**"

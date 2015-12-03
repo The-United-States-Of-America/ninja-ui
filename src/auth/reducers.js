@@ -1,4 +1,4 @@
-import { SUCCESS_LOGIN, FAILED_LOGIN, DO_LOGOUT } from './actions'
+import { SUCCESS_LOGIN, FAILED_LOGIN, DO_LOGOUT, EDIT_USER } from './actions'
 
 let initialState = () => ({
   user: null,
@@ -20,6 +20,14 @@ export default function reduce (state = initialState(), action) {
       }
     case DO_LOGOUT:
       return initialState()
+    case EDIT_USER:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...action.user
+        }
+      }
     default:
       return state
   }

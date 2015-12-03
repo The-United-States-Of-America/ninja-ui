@@ -1,6 +1,16 @@
 import { AUTHSRV } from '../urls'
 import { postJson } from '../utils'
 
+export const EDIT_USER = 'EDIT_USER'
+export function editUser (dispatch) {
+  return function (user) {
+    dispatch({
+      type: EDIT_USER,
+      user
+    })
+  }
+}
+
 export const FAILED_LOGIN = 'FAILED_LOGIN'
 export const SUCCESS_LOGIN = 'SUCCESS_LOGIN'
 export function doLogin (dispatch) {
