@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Gravatar from 'react-gravatar'
+import DatePicker from 'react-datepicker'
+import moment from 'moment'
 import toastr from 'toastr'
 import { DBSRV } from '../urls'
 import { postJson } from '../utils'
@@ -21,13 +23,19 @@ export default class Dash extends Component {
     }
   }
 
+  updateDate (date) {
+    this.setState({
+      dateRequested: date
+    })
+  }
+
   async handleAppointmentCreation () {
     toastr.success('Created appointment!')
     let providerDetails = await fetch(`${DBSRV}/provider/get/${this.state.providerEmail.trim()}`)
     let provider = await providerDetails.json()
 
     let createResponse = await postJson(`${DBSRV}/appt/create`,
-      { clientId: this.props.user.id, providerId: provider.id, state: this.state.state, info: this.state.info, comments: this.state.comments })
+      { clientId: this.props.user.id, providerId: provider.id, state: this.state.state, info: this.state.info, comments: this.state.comments, dateRequested: this.state.dateRequested.toISOString() })
 
     await createResponse.json()
     this.setState({
@@ -44,6 +52,7 @@ export default class Dash extends Component {
     state: 1,
     info: '',
     comments: '',
+    dateRequested: moment(),
     showMakeAppt: false,
     appointments: []
   }
@@ -143,6 +152,9 @@ export default class Dash extends Component {
                   value={this.state.providerEmail}
                   onChange={::this.handleUpdate('providerEmail')}/>
               </div>
+            </div>
+            <div className='field'>
+              <DatePicker selected={this.state.dateRequested} onChange={::this.updateDate} />
             </div>
             <div className='field'>
               <label>Information (Allergies, Medications, Developments)</label>

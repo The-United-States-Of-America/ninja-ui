@@ -10,6 +10,7 @@ import 'whatwg-fetch'
 import 'semantic-ui-css/semantic'
 import 'semantic-ui-css/semantic.css'
 import 'toastr/build/toastr.css'
+import 'react-datepicker/dist/react-datepicker.css'
 
 var devTools = null
 var finalCreateStore = createStore

@@ -46,6 +46,7 @@
     "moment": "^2.10.6",
     "react": "^0.14.0",
     "react-addons-css-transition-group": "^0.14.0",
+    "react-datepicker": "^0.15.2",
     "react-dom": "^0.14.0",
     "react-gravatar": "^2.2.1",
     "react-redux": "^4.0.0",
