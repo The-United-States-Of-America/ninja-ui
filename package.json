@@ -69,6 +69,6 @@
   "scripts": {
     "run": "./node_modules/.bin/snazzy && gulp build && python -m SimpleHTTPServer 8000",
     "test": "./node_modules/.bin/snazzy",
-    "start": "gulp debug"
+    "start": "gulp ui"
   }
 }
