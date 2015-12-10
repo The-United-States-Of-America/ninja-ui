@@ -1,4 +1,7 @@
 git clone https://github.com/The-United-States-Of-America/ninja-ui.git
 cd ninja-ui
-npm i -g gulp
+npm i -g gulp http-server
 npm i
+gulp build
+cd target
+http-server
